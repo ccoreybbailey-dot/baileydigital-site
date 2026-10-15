@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BaileyDigital — Corey Bailey</title>
+<meta name="description" content="I design and build apps for small businesses. The kind that replaces a paper form, a spreadsheet, or a tool your team works around.">
+<link rel="canonical" href="https://baileydigital.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://baileydigital.io/">
+<meta property="og:title" content="BaileyDigital — Corey Bailey">
+<meta property="og:description" content="I design and build apps for small businesses. The kind that replaces a paper form, a spreadsheet, or a tool your team works around.">
+<meta property="og:image" content="https://baileydigital.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BaileyDigital. I’m Corey Bailey. I design and build apps for small businesses.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BaileyDigital — Corey Bailey">
+<meta name="twitter:description" content="I design and build apps for small businesses. The kind that replaces a paper form, a spreadsheet, or a tool your team works around.">
+<meta name="twitter:image" content="https://baileydigital.io/og.png">
+<meta name="color-scheme" content="light">
+<link rel="preload" href="fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<!--
+  Built from the approved boards Site-desktop (1440) and Site-phone (390).
+  Every word, colour and length comes off those boards; copy.md holds the
+  reasons for the words. Change neither here without changing them there.
+
+  Rules for this page:
+    · The only action is mailto:corey@baileydigital.io. No form, no
+      analytics, no cookies, no third-party requests. The font is
+      self-hosted (fonts/, OFL licence beside it).
+    · English only. Never claim bilingual.
+    · ChantierLog was piloted, not "live in production". Say no more than that.
+  The screenshots and the demo video use the made-up "Paysagement Démo"
+  data, not a real crew or client.
+
+  Layout: below 960px the page follows the phone board, in a column capped
+  at 640px; from 960px it follows the desktop board.
+-->
+<style>
+  @font-face {
+    font-family: "Libre Franklin";
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url(fonts/libre-franklin-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  :root {
+    --paper: #FFFFFF;
+    --ink: #16181C;
+    --pencil: #5A5F68;
+    --rule: #D7DADF;
+    --bench: #EDEEF0;
+    --ballpoint: #2A47B8;
+    --frame: #111214;
+    --frame-edge: #2E3035;
+    --frame-button: #2A2C31;
+    --island: #000000;
+    --strip: #1A5B27;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Libre Franklin", "Helvetica Neue", Helvetica, sans-serif;
+  }
+  img, video { display: block; }
+  a { color: var(--ballpoint); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--ballpoint); outline-offset: 3px; }
+  .dark a:focus-visible { outline-color: #FFFFFF; }
+
+  /* ---------- phone board (base) ---------- */
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+  .soft { color: var(--pencil); }
+
+  /* Text links: a 44px hit area without moving anything. */
+  .hit { display: inline-block; padding-block: 11px; margin-block: -11px; }
+
+  .btn {
+    display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px;
+    border-radius: 3px; background: var(--ballpoint); color: #FFFFFF;
+    font-size: 18px; line-height: 24px; font-weight: 600; text-decoration: none;
+  }
+
+  header.wrap {
+    padding-block: 20px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px;
+  }
+  .wordmark { font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.01em; }
+  .wordmark span { font-weight: 400; }
+  header a { font-size: 15px; line-height: 22px; }
+
+  /* hero */
+  .hero { padding-top: 48px; padding-bottom: 72px; }
+  .hero h1 { margin: 0; font-size: clamp(30px, 9.25vw, 36px); line-height: 1.1667; font-weight: 500; letter-spacing: -0.015em; }
+  .hero h1 > span { display: block; }
+  .hero h1 img {
+    display: inline-block; width: 0.9444em; height: 0.9444em; margin: 0 2px;
+    vertical-align: -0.1667em; object-fit: cover; border-radius: 4px;
+  }
+  .hero .lead { margin: 16px 0 0; font-size: 19px; line-height: 28px; }
+  .hero .where { margin: 12px 0 0; font-size: 19px; line-height: 28px; }
+  .hero .cta { margin-top: 32px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .hero .cta p { margin: 0; font-size: 17px; line-height: 26px; }
+
+  /* the two framed phones */
+  .art { margin-top: 20px; }
+  .phones { display: flex; align-items: flex-start; padding: 10px 16px 24px; filter: drop-shadow(0 16px 20px rgba(22, 24, 28, 0.2)); }
+  .phone { position: relative; flex: none; width: 120px; transform: rotate(4deg); }
+  .phone + .phone { margin-left: -16px; margin-top: 18px; transform: rotate(-4deg); }
+  .side { position: absolute; width: 2px; background: var(--frame-button); }
+  .side.l { left: -2px; border-radius: 1px 0 0 1px; }
+  .side.r { right: -2px; border-radius: 0 1px 1px 0; }
+  .side.s1 { top: 54px; height: 13px; }
+  .side.s2 { top: 78px; height: 24px; }
+  .side.s3 { top: 107px; height: 24px; }
+  .side.r  { top: 87px; height: 36px; }
+  .bezel { padding: 5px; background: var(--frame); border: 1px solid var(--frame-edge); border-radius: 22px; }
+  .screen { position: relative; overflow: hidden; border-radius: 17px; background: #000000; }
+  .screen .strip { width: 100%; aspect-ratio: 444 / 62; background: var(--strip); }
+  .screen img { width: 100%; height: auto; object-fit: cover; object-position: top; }
+  .screen img.cl { aspect-ratio: 444 / 900; }
+  .screen img.sp { aspect-ratio: 1179 / 2556; }
+  .island { position: absolute; top: 4px; left: 50%; width: 35px; height: 11px; margin-left: -17.5px; border-radius: 6px; background: var(--island); }
+  .phone-labels { display: flex; padding: 0 16px; }
+  .phone-labels p { margin: 0; width: 120px; text-align: center; font-size: 14px; line-height: 20px; }
+  .phone-labels p + p { margin-left: -16px; }
+
+  /* sections */
+  .rule { border-top: 2px solid var(--ink); padding-top: 20px; }
+  h2 { margin: 0; font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -0.01em; }
+  .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+  .head a { font-size: 15px; line-height: 22px; }
+  .desc { margin: 8px 0 0; font-size: 17px; line-height: 26px; }
+  .point { margin: 16px 0 0; font-size: 17px; line-height: 26px; font-weight: 600; color: var(--ink); }
+
+  .help { padding-bottom: 72px; }
+  .help ul { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .help li { font-size: 17px; line-height: 26px; }
+
+  /* the tables: rows with labels on the phone, a real table on desktop */
+  .table-desktop { display: none; }
+  .rows-cl { margin-top: 40px; }
+  .rows-sp { margin-top: 12px; }
+  .cut-title { margin: 40px 0 0; font-size: 18px; line-height: 26px; font-weight: 600; }
+  .row { border-top: 1px solid var(--rule); padding: 18px 0 24px; }
+  .row > p { margin: 0; font-size: 17px; line-height: 26px; }
+  .row dl { margin: 12px 0 0; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+  .rows-sp .row dl { margin: 0; }
+  .row dt { font-size: 18px; line-height: 26px; font-weight: 600; }
+  .row dd { margin: 0; font-size: 22px; line-height: 30px; letter-spacing: -0.01em; }
+  .then { font-weight: 400; color: var(--pencil); }
+  .now { font-weight: 500; color: var(--ink); }
+
+  /* grey bands of screenshots */
+  .band { margin-top: 96px; background: var(--bench); }
+  .band > .wrap { padding-top: 32px; padding-bottom: 40px; }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-size: 14px; line-height: 20px; color: var(--pencil); }
+  .band-cl .grid, .band-cl .col { display: flex; flex-direction: column; gap: 28px; }
+  .band-cl .crew { width: 62%; }
+  .band-cl .crew img { width: 100%; height: auto; aspect-ratio: 444 / 960; object-fit: cover; border: 1px solid var(--rule); border-radius: 14px; }
+  .band-cl .email img { width: 100%; height: auto; aspect-ratio: 704 / 362; object-fit: cover; object-position: top left; border: 1px solid var(--rule); border-radius: 4px; }
+  .band-cl video { width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 4px; background: var(--rule); }
+  .video-caption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+  .video-caption button {
+    min-height: 44px; padding: 0 16px; border: 1px solid var(--ink); border-radius: 3px;
+    background: transparent; color: var(--ink); font-family: inherit;
+    font-size: 15px; line-height: 22px; font-weight: 600; cursor: pointer;
+  }
+  .band-sp .grid { display: flex; gap: 16px; align-items: flex-start; }
+  .band-sp figure { flex: 1 1 0; min-width: 0; }
+  .band-sp img { width: 100%; height: auto; aspect-ratio: 1179 / 2556; object-fit: cover; border-radius: 14% / 6.5%; }
+
+  .second-pass { padding-top: 72px; }
+
+  .how { padding-top: 72px; padding-bottom: 72px; }
+  .how .three { margin-top: 20px; display: flex; flex-direction: column; gap: 28px; }
+  .how h3 { margin: 0; font-size: 18px; line-height: 26px; font-weight: 600; }
+  .how p { margin: 6px 0 0; font-size: 17px; line-height: 26px; }
+
+  .dark { background: var(--ink); color: #FFFFFF; }
+  .dark .wrap { padding-top: 64px; padding-bottom: 72px; }
+  .dark .rule { border-top-color: #FFFFFF; }
+  .dark .actions { margin-top: 28px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .dark .actions .hit { color: #FFFFFF; font-size: 16px; line-height: 24px; padding-block: 10px; margin-block: -10px; }
+
+  /* ---------- desktop board ---------- */
+
+  @media (min-width: 960px) {
+    .wrap { max-width: 1200px; padding: 0 48px; }
+
+    header.wrap { padding-block: 28px; gap: 12px 32px; }
+    .wordmark { font-size: 22px; line-height: 28px; }
+    header a { font-size: 17px; line-height: 24px; }
+    header .hit { padding-block: 10px; margin-block: -10px; }
+
+    .hero {
+      padding-top: 96px; padding-bottom: 120px;
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px 56px; align-items: start;
+    }
+    .hero h1 { font-size: clamp(36px, 3.75vw, 54px); line-height: 1.15; }
+    .hero h1 > span + span { text-wrap: balance; }
+    .hero h1 img { width: 1em; height: 1em; vertical-align: -0.1852em; }
+    .hero .lead { margin-top: 24px; max-width: 600px; font-size: 22px; line-height: 32px; }
+    .hero .where { margin-top: 16px; max-width: 600px; font-size: 22px; line-height: 32px; }
+    .hero .cta { margin-top: 48px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+    .hero .cta p { max-width: 400px; font-size: 18px; line-height: 28px; }
+
+    .art { margin-top: 0; }
+    .phones { padding: 16px 28px 40px; filter: drop-shadow(0 28px 32px rgba(22, 24, 28, 0.2)); }
+    .phone { width: 204px; }
+    .phone + .phone { margin-left: -28px; margin-top: 32px; }
+    .side { width: 3px; }
+    .side.l { left: -3px; border-radius: 2px 0 0 2px; }
+    .side.r { right: -3px; border-radius: 0 2px 2px 0; }
+    .side.s1 { top: 92px; height: 22px; }
+    .side.s2 { top: 132px; height: 40px; }
+    .side.s3 { top: 182px; height: 40px; }
+    .side.r  { top: 148px; height: 62px; }
+    .bezel { padding: 8px; border-radius: 37px; }
+    .screen { border-radius: 28px; }
+    .island { top: 6px; width: 60px; height: 18px; margin-left: -30px; border-radius: 9px; }
+    .phone-labels { padding: 0 28px; }
+    .phone-labels p { width: 204px; font-size: 15px; line-height: 22px; }
+    .phone-labels p + p { margin-left: -28px; }
+
+    .rule { padding-top: 24px; }
+    h2 { font-size: 36px; line-height: 44px; }
+    .head { gap: 8px 32px; }
+    .head a { font-size: 18px; line-height: 28px; }
+    .head .hit { padding-block: 8px; margin-block: -8px; }
+    .desc { max-width: 640px; font-size: 18px; line-height: 28px; }
+    .point { margin-top: 24px; max-width: 640px; font-size: 18px; line-height: 28px; }
+
+    .help { padding-bottom: 120px; }
+    .help ul { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 48px; }
+    .help li { max-width: 460px; font-size: 18px; line-height: 28px; }
+
+    .rows, .cut-title { display: none; }
+    .table-desktop { display: block; margin-top: 64px; overflow-x: auto; }
+    table { width: 100%; min-width: 720px; border-collapse: collapse; }
+    thead th, thead td { padding: 0 32px 16px 0; text-align: left; font-size: 20px; line-height: 28px; font-weight: 600; }
+    thead th:last-child { padding-right: 0; }
+    tbody th, tbody td { border-top: 1px solid var(--rule); padding: 24px 32px 32px 0; text-align: left; vertical-align: baseline; }
+    tbody td:last-child { padding-right: 0; }
+    tbody td, .cut tbody th { font-size: 28px; line-height: 36px; letter-spacing: -0.01em; }
+    .before-after thead td { width: 22%; padding-right: 24px; }
+    .before-after thead th:first-of-type { width: 32%; }
+    .before-after tbody th { padding-right: 24px; font-size: 18px; line-height: 28px; font-weight: 400; color: var(--pencil); }
+    .cut thead th:first-child { width: 54%; }
+
+    .band { margin-top: 160px; }
+    .band > .wrap { padding-top: 56px; padding-bottom: 64px; }
+    figcaption { margin-top: 14px; font-size: 15px; line-height: 22px; }
+    .band-cl .grid { display: grid; grid-template-columns: minmax(0, 382fr) minmax(0, 690fr); gap: 32px; align-items: start; }
+    .band-cl .col { gap: 24px; }
+    .band-cl .crew { width: auto; }
+    .band-cl .crew img { border-radius: 16px; }
+    .video-caption { gap: 8px 24px; }
+    .video-caption button { padding: 0 18px; }
+    .band-sp .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 322px)); justify-content: center; gap: 32px; }
+
+    .second-pass { padding-top: 120px; }
+
+    .how { padding-top: 120px; padding-bottom: 120px; }
+    .how .three { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+    .how h3 { font-size: 20px; line-height: 28px; }
+    .how p { margin-top: 8px; font-size: 18px; line-height: 28px; }
+
+    .dark .wrap { padding-top: 96px; padding-bottom: 104px; }
+    .dark .actions { margin-top: 40px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+    .dark .actions .hit { font-size: 17px; line-height: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <span class="wordmark">Bailey<span>Digital</span></span>
+  <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
+</header>
+
+<main>
+
+  <section class="hero wrap" aria-label="Introduction">
+    <div>
+      <h1>
+        <span>I’m <img src="img/corey.jpg" width="108" height="108" alt=""> Corey Bailey.</span>
+        <span>I design and build apps for small businesses.</span>
+      </h1>
+      <p class="lead">The kind that replaces a paper form, a spreadsheet, or a tool your team works around.</p>
+      <p class="where soft">Eastern Townships, Quebec. Ten years in the trades, with UX design alongside.</p>
+      <div class="cta">
+        <a class="btn" href="mailto:corey@baileydigital.io">Email me</a>
+        <p>Before anything gets built, I’ll tell you plainly whether it’s worth building.</p>
+      </div>
+    </div>
+    <div class="art">
+      <div class="phones">
+        <div class="phone">
+          <span class="side l s1" aria-hidden="true"></span>
+          <span class="side l s2" aria-hidden="true"></span>
+          <span class="side l s3" aria-hidden="true"></span>
+          <span class="side r" aria-hidden="true"></span>
+          <div class="bezel">
+            <div class="screen">
+              <div class="strip" aria-hidden="true"></div>
+              <img class="cl" src="img/chantierlog-job-list.jpg" width="372" height="754" alt="ChantierLog job list on a phone, in French">
+              <span class="island" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <div class="phone">
+          <span class="side l s1" aria-hidden="true"></span>
+          <span class="side l s2" aria-hidden="true"></span>
+          <span class="side l s3" aria-hidden="true"></span>
+          <span class="side r" aria-hidden="true"></span>
+          <div class="bezel">
+            <div class="screen">
+              <img class="sp" src="img/secondpass-main-screen.jpg" width="372" height="806" alt="Second Pass main screen">
+              <span class="island" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-labels soft">
+        <p>ChantierLog</p>
+        <p>Second Pass</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="help wrap" aria-labelledby="help">
+    <div class="rule">
+      <h2 id="help">What I can help with</h2>
+    </div>
+    <ul>
+      <li>Designing and building an internal tool from scratch</li>
+      <li>Redesigning a tool your team already works around</li>
+      <li>Turning a paper form or spreadsheet into an app your crew uses from their phone</li>
+      <li>A clickable prototype first, so you can see and test the idea before paying for the build</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="chantierlog">
+    <div class="wrap">
+      <div class="rule head">
+        <h2 id="chantierlog">ChantierLog</h2>
+        <a class="hit" href="https://chantierlog.ca">chantierlog.ca</a>
+      </div>
+      <p class="desc soft">A job-site reporting app. At the end of every day I filled in a paper sheet, pen in hand, and it was a real pain. So I built the app I wanted: easier for crew leads to fill in, and easier for the office to receive and file for billing. It was piloted at the landscaping and excavation company I work for.</p>
+
+      <div class="rows rows-cl">
+        <div class="row">
+          <p class="soft">On the job site</p>
+          <dl>
+            <dt>Before</dt>
+            <dd class="then">A paper sheet at the end of the day, pen in hand.</dd>
+            <dt>After</dt>
+            <dd class="now">Crew leads file the day from their phones, offline where there’s no signal.</dd>
+          </dl>
+        </div>
+        <div class="row">
+          <p class="soft">Monday morning</p>
+          <dl>
+            <dt>Before</dt>
+            <dd class="then">Someone in the office chasing hours.</dd>
+            <dt>After</dt>
+            <dd class="now">The office has the whole week assembled, and nobody has to chase anyone for it.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="table-desktop">
+        <table class="before-after">
+          <thead>
+            <tr>
+              <td></td>
+              <th scope="col">Before</th>
+              <th scope="col">After</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">On the job site</th>
+              <td class="then">A paper sheet at the end of the day, pen in hand.</td>
+              <td class="now">Crew leads file the day from their phones, offline where there’s no signal.</td>
+            </tr>
+            <tr>
+              <th scope="row">Monday morning</th>
+              <td class="then">Someone in the office chasing hours.</td>
+              <td class="now">The office has the whole week assembled, and nobody has to chase anyone for it.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="band band-cl">
+      <div class="wrap">
+        <div class="grid">
+          <figure class="crew">
+            <img src="img/chantierlog-crew-sheet.jpg" width="446" height="964" loading="lazy" alt="ChantierLog crew sheet for one job site, on a phone, in French">
+            <figcaption>The crew’s sheet for the day, on a phone.</figcaption>
+          </figure>
+          <div class="col">
+            <figure class="email">
+              <img src="img/chantierlog-weekly-email.jpg" width="704" height="362" loading="lazy" alt="Top of the ChantierLog weekly email in French: one job site with 54.5 hours for the week and the first crew rows">
+              <figcaption>The weekly email the office reads on Monday.</figcaption>
+            </figure>
+            <figure>
+              <video id="demo" src="video/chantierlog-demo.mp4" poster="video/chantierlog-demo-poster.jpg" width="1280" height="720"
+                     muted loop playsinline preload="metadata"
+                     aria-label="ChantierLog demo, in French: a crew lead fills in the day’s sheet on a phone and submits it, then the office sees it on the dashboard and in the weekly email."></video>
+              <figcaption class="video-caption"><span>A demo of the app.</span><button type="button" id="demo-toggle" hidden>Pause video</button></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="second-pass" aria-labelledby="secondpass">
+    <div class="wrap">
+      <div class="rule head">
+        <h2 id="secondpass">Second Pass</h2>
+        <a class="hit" href="https://secondpass.app">secondpass.app</a>
+      </div>
+      <p class="desc soft">An iPhone app I designed and built for myself. It started when I noticed I’d reach for my phone looking for answers I already had. You talk into it, and later it plays your own words back to you. It’s in testing with its first users.</p>
+      <p class="point">It’s where I learned to cut what doesn’t work, even after it’s built.</p>
+
+      <h3 class="cut-title">What I cut, and why</h3>
+      <div class="rows rows-sp">
+        <div class="row">
+          <dl>
+            <dt>Cut</dt>
+            <dd class="then">Two AI features I’d already built</dd>
+            <dt>Why</dt>
+            <dd class="now">They failed on the recordings that mattered most.</dd>
+          </dl>
+        </div>
+        <div class="row">
+          <dl>
+            <dt>Cut</dt>
+            <dd class="then">A feature for long recordings</dd>
+            <dt>Why</dt>
+            <dd class="now">I measured my own recordings. They were short, so it wasn’t needed.</dd>
+          </dl>
+        </div>
+        <div class="row">
+          <dl>
+            <dt>Cut</dt>
+            <dd class="then">Typing</dd>
+            <dt>Why</dt>
+            <dd class="now">I never used it.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="table-desktop">
+        <table class="cut">
+          <thead>
+            <tr>
+              <th scope="col">What I cut</th>
+              <th scope="col">Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="then">Two AI features I’d already built</th>
+              <td class="now">They failed on the recordings that mattered most.</td>
+            </tr>
+            <tr>
+              <th scope="row" class="then">A feature for long recordings</th>
+              <td class="now">I measured my own recordings. They were short, so it wasn’t needed.</td>
+            </tr>
+            <tr>
+              <th scope="row" class="then">Typing</th>
+              <td class="now">I never used it.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="band band-sp">
+      <div class="wrap">
+        <div class="grid">
+          <figure>
+            <img src="img/secondpass-recording.jpg" width="644" height="1396" loading="lazy" alt="Second Pass recording screen">
+            <figcaption>Recording.</figcaption>
+          </figure>
+          <figure>
+            <img src="img/secondpass-choosing.jpg" width="644" height="1396" loading="lazy" alt="Second Pass, choosing what comes back">
+            <figcaption>Choosing what comes back.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how wrap" aria-labelledby="how">
+    <div class="rule">
+      <h2 id="how">How I work</h2>
+    </div>
+    <div class="three">
+      <div>
+        <h3>Step by step</h3>
+        <p>Most clients can picture the finished yard but not how it gets there, so I walk them through it step by step and answer what comes up along the way. Software is no different.</p>
+      </div>
+      <div>
+        <h3>Scope it down</h3>
+        <p>I’d rather scope something down and have it get used than ship something impressive nobody opens.</p>
+      </div>
+      <div>
+        <h3>One person</h3>
+        <p>I do the design and make the product decisions. The engineering runs through AI tools I direct, so the design and the build come from the same person.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark" aria-labelledby="contact">
+    <div class="wrap">
+      <div class="rule">
+        <h2 id="contact">Tell me what your team is working around.</h2>
+      </div>
+      <div class="actions">
+        <a class="btn" href="mailto:corey@baileydigital.io">Email me</a>
+        <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // The demo video. It plays on its own only when the reader has not asked
+  // for reduced motion, and only while it is on screen (it pauses when
+  // scrolled away, to save data and battery). The button is the reader's
+  // switch: once they pause it, it stays paused.
+  (function () {
+    var video = document.getElementById("demo");
+    var button = document.getElementById("demo-toggle");
+    if (!video || !button) return;
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var wanted = !reduce;
+    var onScreen = !("IntersectionObserver" in window);
+
+    function label() { button.textContent = wanted ? "Pause video" : "Play video"; }
+
+    function sync() {
+      if (wanted && onScreen) {
+        var p = video.play();
+        // If the browser refuses to play (Low Power Mode, for one), say so.
+        if (p && p.catch) p.catch(function () { wanted = false; label(); });
+      } else if (!video.paused) {
+        video.pause();
+      }
+    }
+
+    button.addEventListener("click", function () {
+      wanted = !wanted;
+      label();
+      sync();
+    });
+
+    if (!onScreen) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[entries.length - 1].isIntersecting;
+        sync();
+      }).observe(video);
+    }
+
+    label();
+    button.hidden = false;
+    sync();
+  })();
+</script>
+</body>
+</html>
