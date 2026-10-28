@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BaileyDigital — Corey Bailey</title>
-<meta name="description" content="I design and build apps for small businesses. The kind that replaces a paper form, a spreadsheet, or a tool your team works around.">
+<meta name="description" content="I design and build workflows and apps that solve a specific problem for small businesses. Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.">
 <link rel="canonical" href="https://baileydigital.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://baileydigital.io/">
 <meta property="og:title" content="BaileyDigital — Corey Bailey">
-<meta property="og:description" content="I design and build apps for small businesses. The kind that replaces a paper form, a spreadsheet, or a tool your team works around.">
+<meta property="og:description" content="I design and build workflows and apps that solve a specific problem for small businesses. Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.">
 <meta property="og:image" content="https://baileydigital.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="BaileyDigital. I’m Corey Bailey. I design and build apps for small businesses.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BaileyDigital — Corey Bailey">
-<meta name="twitter:description" content="I design and build apps for small businesses. The kind that replaces a paper form, a spreadsheet, or a tool your team works around.">
+<meta name="twitter:description" content="I design and build workflows and apps that solve a specific problem for small businesses. Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.">
 <meta name="twitter:image" content="https://baileydigital.io/og.png">
 <meta name="color-scheme" content="light">
 <link rel="preload" href="fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -162,9 +162,9 @@
   figure { margin: 0; }
   figcaption { margin-top: 10px; font-size: 14px; line-height: 20px; color: var(--pencil); }
   .band-cl .grid, .band-cl .col { display: flex; flex-direction: column; gap: 28px; }
-  .band-cl .crew { width: 62%; }
-  .band-cl .crew img { width: 100%; height: auto; aspect-ratio: 444 / 960; object-fit: cover; border: 1px solid var(--rule); border-radius: 14px; }
-  .band-cl .email img { width: 100%; height: auto; aspect-ratio: 704 / 362; object-fit: cover; object-position: top left; border: 1px solid var(--rule); border-radius: 4px; }
+  .band-cl .crew { width: calc((100% - 16px) / 2); }
+  .band-cl .crew img { width: 100%; height: auto; aspect-ratio: 1179 / 2556; object-fit: cover; border: 1px solid var(--rule); border-radius: 14px; }
+  .band-cl .email img { width: 100%; height: auto; aspect-ratio: 1896 / 1065; object-fit: cover; object-position: top left; border: 1px solid var(--rule); border-radius: 4px; }
   .band-cl video { width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 4px; background: var(--rule); }
   .video-caption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
   .video-caption button {
@@ -182,6 +182,9 @@
   .how .three { margin-top: 20px; display: flex; flex-direction: column; gap: 28px; }
   .how h3 { margin: 0; font-size: 18px; line-height: 26px; font-weight: 600; }
   .how p { margin: 6px 0 0; font-size: 17px; line-height: 26px; }
+
+  .about { padding-bottom: 72px; }
+  .about .desc + .desc { margin-top: 16px; }
 
   .dark { background: var(--ink); color: #FFFFFF; }
   .dark .wrap { padding-top: 64px; padding-bottom: 72px; }
@@ -257,7 +260,7 @@
     .band { margin-top: 160px; }
     .band > .wrap { padding-top: 56px; padding-bottom: 64px; }
     figcaption { margin-top: 14px; font-size: 15px; line-height: 22px; }
-    .band-cl .grid { display: grid; grid-template-columns: minmax(0, 382fr) minmax(0, 690fr); gap: 32px; align-items: start; }
+    .band-cl .grid { display: grid; grid-template-columns: minmax(0, 322px) minmax(0, 1fr); gap: 32px; align-items: start; }
     .band-cl .col { gap: 24px; }
     .band-cl .crew { width: auto; }
     .band-cl .crew img { border-radius: 16px; }
@@ -271,6 +274,9 @@
     .how .three { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
     .how h3 { font-size: 20px; line-height: 28px; }
     .how p { margin-top: 8px; font-size: 18px; line-height: 28px; }
+
+    .about { padding-bottom: 120px; }
+    .about .desc + .desc { margin-top: 24px; }
 
     .dark .wrap { padding-top: 96px; padding-bottom: 104px; }
     .dark .actions { margin-top: 40px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
@@ -291,9 +297,9 @@
     <div>
       <h1>
         <span>I’m <img src="img/corey.jpg" width="108" height="108" alt=""> Corey Bailey.</span>
-        <span>I design and build apps for small businesses.</span>
+        <span>I design and build workflows and apps that solve a specific problem for small businesses.</span>
       </h1>
-      <p class="lead">The kind that replaces a paper form, a spreadsheet, or a tool your team works around.</p>
+      <p class="lead">Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.</p>
       <p class="where soft">Eastern Townships, Quebec. Ten years in the trades, with UX design alongside.</p>
       <div class="cta">
         <a class="btn" href="mailto:corey@baileydigital.io">Email me</a>
@@ -340,9 +346,10 @@
       <h2 id="help">What I can help with</h2>
     </div>
     <ul>
-      <li>Designing and building an internal tool from scratch</li>
-      <li>Redesigning a tool your team already works around</li>
+      <li>Designing and building tools from scratch</li>
+      <li>Connecting the tools you already use, so they work together</li>
       <li>Turning a paper form or spreadsheet into an app your crew uses from their phone</li>
+      <li>Automating repetitive tasks, so you and your team can focus on what’s important</li>
       <li>A clickable prototype first, so you can see and test the idea before paying for the build</li>
     </ul>
   </section>
@@ -371,7 +378,7 @@
             <dt>Before</dt>
             <dd class="then">Someone in the office chasing hours.</dd>
             <dt>After</dt>
-            <dd class="now">The office has the whole week assembled, and nobody has to chase anyone for it.</dd>
+            <dd class="now">The week lands in the office’s inbox on its own, and nobody has to chase anyone for it.</dd>
           </dl>
         </div>
       </div>
@@ -394,7 +401,7 @@
             <tr>
               <th scope="row">Monday morning</th>
               <td class="then">Someone in the office chasing hours.</td>
-              <td class="now">The office has the whole week assembled, and nobody has to chase anyone for it.</td>
+              <td class="now">The week lands in the office’s inbox on its own, and nobody has to chase anyone for it.</td>
             </tr>
           </tbody>
         </table>
@@ -405,12 +412,12 @@
       <div class="wrap">
         <div class="grid">
           <figure class="crew">
-            <img src="img/chantierlog-crew-sheet.jpg" width="446" height="964" loading="lazy" alt="ChantierLog crew sheet for one job site, on a phone, in French">
+            <img src="img/chantierlog-crew-sheet.jpg" width="1179" height="2556" loading="lazy" alt="ChantierLog crew sheet for one job site, on a phone, in French">
             <figcaption>The crew’s sheet for the day, on a phone.</figcaption>
           </figure>
           <div class="col">
             <figure class="email">
-              <img src="img/chantierlog-weekly-email.jpg" width="704" height="362" loading="lazy" alt="Top of the ChantierLog weekly email in French: one job site with 54.5 hours for the week and the first crew rows">
+              <img src="img/chantierlog-weekly-email.jpg" width="1896" height="1065" loading="lazy" alt="Top of the ChantierLog weekly email in French: one job site with 54.5 hours for the week and the first crew rows">
               <figcaption>The weekly email the office reads on Monday.</figcaption>
             </figure>
             <figure>
@@ -431,7 +438,7 @@
         <h2 id="secondpass">Second Pass</h2>
         <a class="hit" href="https://secondpass.app">secondpass.app</a>
       </div>
-      <p class="desc soft">An iPhone app I designed and built for myself. It started when I noticed I’d reach for my phone looking for answers I already had. You talk into it, and later it plays your own words back to you. It’s in testing with its first users.</p>
+      <p class="desc soft">An iPhone app I designed and built. I’d been scrolling reels for far too long when a video came up saying, more or less, go do something with your life. It didn’t say anything groundbreaking, and that’s when I realized we already have this knowledge. We just need to be reminded of it. So I built an app that reminds you in your own words: you talk into it, and later it plays them back to you. It’s in testing with its first users.</p>
       <p class="point">It’s where I learned to cut what doesn’t work, even after it’s built.</p>
 
       <h3 class="cut-title">What I cut, and why</h3>
@@ -522,6 +529,14 @@
         <p>I do the design and make the product decisions. The engineering runs through AI tools I direct, so the design and the build come from the same person.</p>
       </div>
     </div>
+  </section>
+
+  <section class="about wrap" aria-labelledby="about">
+    <div class="rule">
+      <h2 id="about">About me</h2>
+    </div>
+    <p class="desc soft">I’ve worked in the trades for ten years, operating heavy equipment and dealing with clients every day. When I have a clear objective for the day, it reflects in the work and in how the whole project goes. Everything runs smoother, and everybody works together better.</p>
+    <p class="desc soft">I want to build tools that give a team that kind of clarity: they handle the day-to-day of running a business without adding to the noise. I think keeping a clear mind is essential to a good work environment.</p>
   </section>
 
   <section class="dark" aria-labelledby="contact">
