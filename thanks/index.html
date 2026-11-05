@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thanks — BaileyDigital</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<link rel="preload" href="../fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<!--
+  Where the walk-through form on the home page lands after Web3Forms has
+  sent it (the form's redirect). Same font, tokens and header as the home
+  page; nothing else on it, no script.
+
+  The words here are a PLACEHOLDER, written by the CTO side so the form had
+  somewhere to land. The CCO adjusts them in copy.md; change them there first.
+-->
+<style>
+  @font-face {
+    font-family: "Libre Franklin";
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url(../fonts/libre-franklin-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  :root {
+    --paper: #FFFFFF;
+    --ink: #16181C;
+    --pencil: #5A5F68;
+    --rule: #D7DADF;
+    --ballpoint: #2A47B8;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Libre Franklin", "Helvetica Neue", Helvetica, sans-serif;
+  }
+  a { color: var(--ballpoint); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 3px solid var(--ballpoint); outline-offset: 3px; }
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+  .soft { color: var(--pencil); }
+  .hit { display: inline-block; padding-block: 11px; margin-block: -11px; }
+
+  header.wrap { padding-block: 20px; }
+  .wordmark { font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.01em; }
+  .wordmark span { font-weight: 400; }
+
+  main.wrap { padding-top: 48px; padding-bottom: 72px; }
+  h1 { margin: 0; font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -0.01em; }
+  .desc { margin: 8px 0 0; font-size: 17px; line-height: 26px; }
+  .back { margin: 24px 0 0; font-size: 17px; line-height: 26px; }
+
+  @media (min-width: 960px) {
+    .wrap { max-width: 1200px; padding: 0 48px; }
+    header.wrap { padding-block: 28px; }
+    .wordmark { font-size: 22px; line-height: 28px; }
+    main.wrap { padding-top: 96px; padding-bottom: 120px; }
+    h1 { font-size: 36px; line-height: 44px; }
+    .desc { max-width: 640px; font-size: 18px; line-height: 28px; }
+    .back { margin-top: 32px; font-size: 18px; line-height: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <span class="wordmark">Bailey<span>Digital</span></span>
+</header>
+
+<main class="wrap">
+  <h1>Thanks, it’s sent.</h1>
+  <p class="desc soft">I’ll read your answers and get back to you by email.</p>
+  <p class="back"><a class="hit" href="/">Back to baileydigital.io</a></p>
+</main>
+
+</body>
+</html>

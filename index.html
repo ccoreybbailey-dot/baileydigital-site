@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BaileyDigital — Corey Bailey</title>
-<meta name="description" content="I design and build workflows and apps that solve a specific problem for small businesses. Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.">
+<meta name="description" content="Keep your team organized and your clients in the loop. Simple tools for small businesses, starting with a free walk-through.">
 <link rel="canonical" href="https://baileydigital.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://baileydigital.io/">
 <meta property="og:title" content="BaileyDigital — Corey Bailey">
-<meta property="og:description" content="I design and build workflows and apps that solve a specific problem for small businesses. Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.">
+<meta property="og:description" content="Keep your team organized and your clients in the loop. Simple tools for small businesses, starting with a free walk-through.">
 <meta property="og:image" content="https://baileydigital.io/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="BaileyDigital. I’m Corey Bailey. I design and build apps for small businesses.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BaileyDigital — Corey Bailey">
-<meta name="twitter:description" content="I design and build workflows and apps that solve a specific problem for small businesses. Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.">
+<meta name="twitter:description" content="Keep your team organized and your clients in the loop. Simple tools for small businesses, starting with a free walk-through.">
 <meta name="twitter:image" content="https://baileydigital.io/og.png">
 <meta name="color-scheme" content="light">
 <link rel="preload" href="fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -27,9 +27,11 @@
   reasons for the words. Change neither here without changing them there.
 
   Rules for this page:
-    · The only action is mailto:corey@baileydigital.io. No form, no
-      analytics, no cookies, no third-party requests. The font is
-      self-hosted (fonts/, OFL licence beside it).
+    · One form, in the close: a plain HTML POST to Web3Forms
+      (api.web3forms.com), no script, no captcha, nothing stored on the
+      site. The answers arrive by email. mailto:corey@baileydigital.io
+      stays beside it. Otherwise no analytics, no cookies, no third-party
+      requests. The font is self-hosted (fonts/, OFL licence beside it).
     · English only. Never claim bilingual.
     · ChantierLog was piloted, not "live in production". Say no more than that.
   The screenshots and the demo video use the made-up "Paysagement Démo"
@@ -70,7 +72,8 @@
   a { color: var(--ballpoint); text-underline-offset: 3px; }
   a:hover { text-decoration-thickness: 2px; }
   a:focus-visible, button:focus-visible { outline: 3px solid var(--ballpoint); outline-offset: 3px; }
-  .dark a:focus-visible { outline-color: #FFFFFF; }
+  .dark a:focus-visible, .dark button:focus-visible { outline-color: #FFFFFF; }
+  .dark input:focus-visible, .dark textarea:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
 
   /* ---------- phone board (base) ---------- */
 
@@ -141,6 +144,7 @@
   .help { padding-bottom: 72px; }
   .help ul { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
   .help li { font-size: 17px; line-height: 26px; }
+  .help li strong { font-weight: 600; }
 
   /* the tables: rows with labels on the phone, a real table on desktop */
   .table-desktop { display: none; }
@@ -191,6 +195,21 @@
   .dark .rule { border-top-color: #FFFFFF; }
   .dark .actions { margin-top: 28px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
   .dark .actions .hit { color: #FFFFFF; font-size: 16px; line-height: 24px; padding-block: 10px; margin-block: -10px; }
+
+  /* the walk-through and its form, in the close */
+  .dark h3 { margin: 28px 0 0; font-size: 17px; line-height: 26px; font-weight: 600; }
+  .dark .body { margin: 8px 0 0; max-width: 640px; font-size: 17px; line-height: 26px; }
+  .dark .body + .body { margin-top: 16px; }
+  .dark form { margin-top: 28px; }
+  .fields { display: flex; flex-direction: column; gap: 20px; max-width: 640px; }
+  .field label { display: block; margin-bottom: 8px; font-size: 16px; line-height: 24px; font-weight: 500; }
+  .field input, .field textarea {
+    display: block; width: 100%; min-height: 48px; margin: 0; padding: 12px 14px;
+    border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); color: var(--ink);
+    font-family: inherit; font-size: 17px; line-height: 24px;
+  }
+  .field textarea { resize: vertical; }
+  .dark button.btn { border: 0; font-family: inherit; cursor: pointer; }
 
   /* ---------- desktop board ---------- */
 
@@ -281,6 +300,12 @@
     .dark .wrap { padding-top: 96px; padding-bottom: 104px; }
     .dark .actions { margin-top: 40px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
     .dark .actions .hit { font-size: 17px; line-height: 24px; }
+    .dark h3 { margin-top: 40px; font-size: 18px; line-height: 28px; }
+    .dark .body { font-size: 18px; line-height: 28px; }
+    .dark .body + .body { margin-top: 24px; }
+    .dark form { margin-top: 40px; }
+    .fields { gap: 24px; }
+    .field label { font-size: 17px; }
   }
 </style>
 </head>
@@ -297,13 +322,12 @@
     <div>
       <h1>
         <span>I’m <img src="img/corey.jpg" width="108" height="108" alt=""> Corey Bailey.</span>
-        <span>I design and build workflows and apps that solve a specific problem for small businesses.</span>
+        <span>Keep your team organized and your clients in the loop.</span>
       </h1>
-      <p class="lead">Every business has needs that generic tools can’t meet. I build tools and workflows made for your company and the people who make it happen.</p>
+      <p class="lead">For a crew in the field, that means knowing what got done today, what material came in and who was on which job, and being able to tell a client where things stand without a phone call. When that lives on paper and in texts, hours get billed wrong and clients ask questions nobody can answer. I build simple tools that fix that.</p>
       <p class="where soft">Eastern Townships, Quebec. Ten years in the trades, with UX design alongside.</p>
       <div class="cta">
-        <a class="btn" href="mailto:corey@baileydigital.io">Email me</a>
-        <p>Before anything gets built, I’ll tell you plainly whether it’s worth building.</p>
+        <a class="btn" href="#walk-through">Book a free walk-through</a>
       </div>
     </div>
     <div class="art">
@@ -341,16 +365,17 @@
     </div>
   </section>
 
-  <section class="help wrap" aria-labelledby="help">
+  <section class="help wrap" aria-labelledby="offer">
     <div class="rule">
-      <h2 id="help">What I can help with</h2>
+      <h2 id="offer">What I offer</h2>
     </div>
+    <p class="desc soft">Tools built around how your business works, not a generic app you have to work around.</p>
     <ul>
-      <li>Designing and building tools from scratch</li>
-      <li>Connecting the tools you already use, so they work together</li>
-      <li>Turning a paper form or spreadsheet into an app your crew uses from their phone</li>
-      <li>Automating repetitive tasks, so you and your team can focus on what’s important</li>
-      <li>A clickable prototype first, so you can see and test the idea before paying for the build</li>
+      <li><strong>Hours that bill right.</strong> Your team records their time and work as they go, and it reaches the office on its own, so the week doesn’t get pieced together from memory.</li>
+      <li><strong>A day that’s planned.</strong> Everyone knows what’s happening and when, so you can stay organized and focus on what matters to you.</li>
+      <li><strong>Clients who know where things stand.</strong> Simple updates and a clear timeline, so they aren’t calling to ask.</li>
+      <li><strong>A system for the work you do over and over.</strong> Clear steps for each kind of job, so it’s done right no matter who does it.</li>
+      <li><strong>Less doing things twice.</strong> Your tools connected, so information is entered once and goes where it needs to.</li>
     </ul>
   </section>
 
@@ -539,15 +564,52 @@
     <p class="desc soft">I want to build tools that give a team that kind of clarity: they handle the day-to-day of running a business without adding to the noise. I think keeping a clear mind is essential to a good work environment.</p>
   </section>
 
-  <section class="dark" aria-labelledby="contact">
+  <section class="dark" id="walk-through" aria-labelledby="contact">
     <div class="wrap">
       <div class="rule">
-        <h2 id="contact">Tell me what your team is working around.</h2>
+        <h2 id="contact">A calmer team, and clients who know what’s going on.</h2>
       </div>
-      <div class="actions">
-        <a class="btn" href="mailto:corey@baileydigital.io">Email me</a>
-        <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
-      </div>
+      <h3>Book a free walk-through</h3>
+      <p class="body">I come by, or we talk on a call if you’re not nearby. I’ll ask where things get lost: with your clients, with your team, between the job and the office. Then I’ll ask to see how it’s done now, whether that’s a paper form, a group chat or a spreadsheet.</p>
+      <p class="body">Within a few days you get one to three options in writing, each with what it would cost and how long it would take. No obligation. And if it isn’t worth building, I’ll tell you that too.</p>
+      <p class="body">If you go ahead, the first step is a clickable prototype, a small paid job, so you can see how it will work, and try it, before anything gets built.</p>
+      <!-- A plain POST to Web3Forms, which emails the answers to Corey and
+           sends the reader to /thanks/. The access key is Web3Forms' public
+           key, safe in the page; WEB3FORMS_ACCESS_KEY is a placeholder
+           until the real one is pasted in. The name attributes are the
+           questions, so the email reads clearly. -->
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="Walk-through request from baileydigital.io">
+        <input type="hidden" name="from_name" value="baileydigital.io">
+        <input type="hidden" name="redirect" value="https://baileydigital.io/thanks/">
+        <div class="fields">
+          <div class="field">
+            <label for="q-chasing">What does your team spend time chasing?</label>
+            <textarea id="q-chasing" name="What does your team spend time chasing" rows="3" required></textarea>
+          </div>
+          <div class="field">
+            <label for="q-clients">How do you keep clients updated now?</label>
+            <textarea id="q-clients" name="How do you keep clients updated now" rows="3" required></textarea>
+          </div>
+          <div class="field">
+            <label for="q-team">How many people on your team?</label>
+            <input type="text" id="q-team" name="How many people on your team" required>
+          </div>
+          <div class="field">
+            <label for="f-name">Name</label>
+            <input type="text" id="f-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" type="submit">Book a free walk-through</button>
+          <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
+        </div>
+      </form>
     </div>
   </section>
 
