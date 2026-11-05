@@ -575,11 +575,11 @@
       <p class="body">If you go ahead, the first step is a clickable prototype, a small paid job, so you can see how it will work, and try it, before anything gets built.</p>
       <!-- A plain POST to Web3Forms, which emails the answers to Corey and
            sends the reader to /thanks/. The access key is Web3Forms' public
-           key, safe in the page; WEB3FORMS_ACCESS_KEY is a placeholder
-           until the real one is pasted in. The name attributes are the
-           questions, so the email reads clearly. -->
+           key, safe in the page; the value below is the live public key.
+           The name attributes are the questions, so the email reads
+           clearly. -->
       <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="access_key" value="7b02fbd6-59ec-4d85-b9a2-1b703598c37a">
         <input type="hidden" name="subject" value="Walk-through request from baileydigital.io">
         <input type="hidden" name="from_name" value="baileydigital.io">
         <input type="hidden" name="redirect" value="https://baileydigital.io/thanks/">
