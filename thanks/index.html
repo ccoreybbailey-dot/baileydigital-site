@@ -6,6 +6,10 @@
 <title>Thanks — BaileyDigital</title>
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="../fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <!--
@@ -47,8 +51,14 @@
   .hit { display: inline-block; padding-block: 11px; margin-block: -11px; }
 
   header.wrap { padding-block: 20px; }
-  .wordmark { font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.01em; }
-  .wordmark span { font-weight: 400; }
+  /* The wordmark SVG is drawn at 60px type: in em here so it scales with the
+     font-size. Its text baseline (y 46 of 74) sits on the line's baseline and
+     the negative margin keeps the pen line below it out of the layout. */
+  .wordmark { font-size: 20px; line-height: 26px; }
+  .wordmark img {
+    display: inline; width: auto; height: calc(74em / 60);
+    margin: 0 0 calc(-28em / 60) calc(-2em / 60); vertical-align: baseline;
+  }
 
   main.wrap { padding-top: 48px; padding-bottom: 72px; }
   h1 { margin: 0; font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -0.01em; }
@@ -69,7 +79,7 @@
 <body>
 
 <header class="wrap">
-  <span class="wordmark">Bailey<span>Digital</span></span>
+  <span class="wordmark"><img src="../img/wordmark.svg" width="356" height="74" alt="BaileyDigital"></span>
 </header>
 
 <main class="wrap">

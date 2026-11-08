@@ -19,6 +19,10 @@
 <meta name="twitter:description" content="Keep your team organized and your clients in the loop. Simple tools for small businesses, starting with a free walk-through.">
 <meta name="twitter:image" content="https://baileydigital.io/og.png">
 <meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <!--
@@ -32,6 +36,8 @@
       site. The answers arrive by email. mailto:corey@baileydigital.io
       stays beside it. Otherwise no analytics, no cookies, no third-party
       requests. The font is self-hosted (fonts/, OFL licence beside it).
+    · The logo is outlined SVG (img/), the icons are files at the root, and
+      the JSON-LD block below is data for search engines, not a script.
     · English only. Never claim bilingual.
     · ChantierLog was piloted, not "live in production". Say no more than that.
   The screenshots and the demo video use the made-up "Paysagement Démo"
@@ -93,8 +99,14 @@
     padding-block: 20px;
     display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px;
   }
-  .wordmark { font-size: 20px; line-height: 26px; font-weight: 600; letter-spacing: -0.01em; }
-  .wordmark span { font-weight: 400; }
+  /* The wordmark SVG is drawn at 60px type: in em here so it scales with the
+     font-size. Its text baseline (y 46 of 74) sits on the line's baseline and
+     the negative margin keeps the pen line below it out of the layout. */
+  .wordmark { font-size: 20px; line-height: 26px; }
+  .wordmark img {
+    display: inline; width: auto; height: calc(74em / 60);
+    margin: 0 0 calc(-28em / 60) calc(-2em / 60); vertical-align: baseline;
+  }
   header a { font-size: 15px; line-height: 22px; }
 
   /* hero */
@@ -308,11 +320,14 @@
     .field label { font-size: 17px; }
   }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"BaileyDigital","url":"https://baileydigital.io/","logo":"https://baileydigital.io/logo.png"}
+</script>
 </head>
 <body>
 
 <header class="wrap">
-  <span class="wordmark">Bailey<span>Digital</span></span>
+  <span class="wordmark"><img src="img/wordmark.svg" width="356" height="74" alt="BaileyDigital"></span>
   <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
 </header>
 
