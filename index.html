@@ -27,8 +27,10 @@
 
 <!--
   Built from the approved boards Site-desktop (1440) and Site-phone (390).
-  Every word, colour and length comes off those boards; copy.md holds the
-  reasons for the words. Change neither here without changing them there.
+  Every word and length comes off those boards; copy.md holds the reasons
+  for the words. The colours and the movement come from Revision 4 (the
+  CCO's colour board, direction A, and handoff.md). Change none of them
+  here without changing them there.
 
   Rules for this page:
     · One form, in the close: a plain HTML POST to Web3Forms
@@ -36,8 +38,17 @@
       site. The answers arrive by email. mailto:corey@baileydigital.io
       stays beside it. Otherwise no analytics, no cookies, no third-party
       requests. The font is self-hosted (fonts/, OFL licence beside it).
-    · The logo is outlined SVG (img/), the icons are files at the root, and
-      the JSON-LD block below is data for search engines, not a script.
+    · The logo is outlined SVG (img/): wordmark-navy.svg on the navy top,
+      wordmark.svg on white (thanks/). The logo never animates. The icons
+      are files at the root, and the JSON-LD block below is data for
+      search engines, not a script.
+    · Colour: Navy behind the header and hero, a Ballpoint band behind
+      What I offer, white everywhere else.
+    · Script is inline and small: one line in the head that marks the
+      page as able to move, and one block at the end for the demo video
+      and the movement. Movement plays once and never loops. With Reduce
+      Motion on, nothing moves and the pen lines are already drawn.
+      Without script, nothing is hidden: the page reads as plain text.
     · English only. Never claim bilingual.
     · ChantierLog was piloted, not "live in production". Say no more than that.
   The screenshots and the demo video use the made-up "Paysagement Démo"
@@ -46,6 +57,12 @@
   Layout: below 960px the page follows the phone board, in a column capped
   at 640px; from 960px it follows the desktop board.
 -->
+<script>
+  // Before first paint: the movement's start states (phones low, After cells
+  // in Pencil, pen lines undrawn) only apply under this class, so a page
+  // without script never hides anything.
+  if ("IntersectionObserver" in window) document.documentElement.classList.add("motion");
+</script>
 <style>
   @font-face {
     font-family: "Libre Franklin";
@@ -67,6 +84,9 @@
     --frame-button: #2A2C31;
     --island: #000000;
     --strip: #1A5B27;
+    --navy: #16203F;
+    --navy-soft: #B9C2DC;
+    --ballpoint-soft: #D3DBFA;
   }
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -80,6 +100,7 @@
   a:focus-visible, button:focus-visible { outline: 3px solid var(--ballpoint); outline-offset: 3px; }
   .dark a:focus-visible, .dark button:focus-visible { outline-color: #FFFFFF; }
   .dark input:focus-visible, .dark textarea:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+  .top a:focus-visible { outline-color: #FFFFFF; }
 
   /* ---------- phone board (base) ---------- */
 
@@ -94,6 +115,20 @@
     border-radius: 3px; background: var(--ballpoint); color: #FFFFFF;
     font-size: 18px; line-height: 24px; font-weight: 600; text-decoration: none;
   }
+  /* The hero button's pen line: drawn under the label on hover and focus. */
+  .btn .lbl { position: relative; }
+  .btn .lbl svg { position: absolute; left: -2px; top: calc(100% - 1px); width: calc(100% + 4px); height: auto; overflow: visible; }
+  .btn .lbl path {
+    fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round;
+    stroke-dasharray: 1 2; stroke-dashoffset: 1; visibility: hidden;
+  }
+  .btn:hover .lbl path, .btn:focus-visible .lbl path { stroke-dashoffset: 0; visibility: visible; }
+
+  /* The navy top: header and hero, full width. */
+  .top { background: var(--navy); color: #FFFFFF; }
+  .top a { color: var(--navy-soft); }
+  .top .lead, .top .soft { color: var(--navy-soft); }
+  .top .btn { background: #FFFFFF; color: var(--navy); }
 
   header.wrap {
     padding-block: 20px;
@@ -153,10 +188,19 @@
   .desc { margin: 8px 0 0; font-size: 17px; line-height: 26px; }
   .point { margin: 16px 0 0; font-size: 17px; line-height: 26px; font-weight: 600; color: var(--ink); }
 
-  .help { padding-bottom: 72px; }
-  .help ul { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
-  .help li { font-size: 17px; line-height: 26px; }
+  /* What I offer: a full-width Ballpoint band, each offer a white panel. */
+  .help { background: var(--ballpoint); color: #FFFFFF; }
+  .help .wrap { padding-top: 64px; padding-bottom: 72px; }
+  .help .rule { border-top-color: #FFFFFF; }
+  .help .desc { color: var(--ballpoint-soft); }
+  .help ul { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .help li { padding: 16px 18px; border-radius: 4px; background: #FFFFFF; color: var(--ink); font-size: 17px; line-height: 26px; }
   .help li strong { font-weight: 600; }
+  @media (hover: hover) {
+    .help li:hover { box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12); }
+  }
+
+  .chantierlog { padding-top: 72px; }
 
   /* the tables: rows with labels on the phone, a real table on desktop */
   .table-desktop { display: none; }
@@ -171,6 +215,12 @@
   .row dd { margin: 0; font-size: 22px; line-height: 30px; letter-spacing: -0.01em; }
   .then { font-weight: 400; color: var(--pencil); }
   .now { font-weight: 500; color: var(--ink); }
+
+  /* The pen lines crossing out each Before and What I cut, one per line of
+     text. The script lays them; until then the cell reads as plain text. */
+  .then { position: relative; }
+  .pen-line { position: absolute; overflow: visible; pointer-events: none; }
+  .pen-line path { fill: none; stroke: var(--ballpoint); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1 2; }
 
   /* grey bands of screenshots */
   .band { margin-top: 96px; background: var(--bench); }
@@ -271,9 +321,11 @@
     .desc { max-width: 640px; font-size: 18px; line-height: 28px; }
     .point { margin-top: 24px; max-width: 640px; font-size: 18px; line-height: 28px; }
 
-    .help { padding-bottom: 120px; }
-    .help ul { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 48px; }
-    .help li { max-width: 460px; font-size: 18px; line-height: 28px; }
+    .help .wrap { padding-top: 96px; padding-bottom: 104px; }
+    .help ul { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .help li { padding: 20px 24px; font-size: 18px; line-height: 28px; }
+
+    .chantierlog { padding-top: 120px; }
 
     .rows, .cut-title { display: none; }
     .table-desktop { display: block; margin-top: 64px; overflow-x: auto; }
@@ -319,6 +371,34 @@
     .fields { gap: 24px; }
     .field label { font-size: 17px; }
   }
+
+  /* ---------- movement: once, and only when the reader allows it ---------- */
+
+  @keyframes rise { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes pen-draw {
+    from { stroke-dashoffset: 1; visibility: hidden; }
+    to { stroke-dashoffset: 0; visibility: visible; }
+  }
+  @keyframes ink-land { from { color: var(--pencil); } to { color: var(--ink); } }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .motion .art { animation: rise 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+    /* data-strike: pending until it first comes into view, .go while it
+       plays, .done after (and straight away under Reduce Motion). */
+    .motion [data-strike]:not(.done) .pen-line path { visibility: hidden; }
+    .motion [data-strike]:not(.done) .now { color: var(--pencil); }
+    .motion [data-strike].go .pen-line path { animation: pen-draw 500ms cubic-bezier(0.3, 0.6, 0.2, 1) both; }
+    .motion [data-strike].go .now { animation: ink-land 500ms ease-out both; }
+
+    .btn .lbl path { transition: stroke-dashoffset 400ms cubic-bezier(0.3, 0.6, 0.2, 1), visibility 400ms; }
+    .btn:hover .lbl path, .btn:focus-visible .lbl path { transition: stroke-dashoffset 400ms cubic-bezier(0.3, 0.6, 0.2, 1); }
+
+    .help li { transition: transform 160ms ease, box-shadow 160ms ease; }
+  }
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+    .help li:hover { transform: translateY(-2px); }
+  }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"BaileyDigital","url":"https://baileydigital.io/","logo":"https://baileydigital.io/logo.png"}
@@ -326,23 +406,26 @@
 </head>
 <body>
 
+<div class="top">
 <header class="wrap">
-  <span class="wordmark"><img src="img/wordmark.svg" width="356" height="74" alt="BaileyDigital"></span>
+  <span class="wordmark"><img src="img/wordmark-navy.svg" width="356" height="74" alt="BaileyDigital"></span>
   <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
 </header>
+</div>
 
 <main>
 
+  <div class="top">
   <section class="hero wrap" aria-label="Introduction">
     <div>
       <h1>
         <span>I’m <img src="img/corey.jpg" width="108" height="108" alt=""> Corey Bailey.</span>
         <span>Keep your team organized and your clients in the loop.</span>
       </h1>
-      <p class="lead">For a crew in the field, that means knowing what got done today, what material came in and who was on which job, and being able to tell a client where things stand without a phone call. When that lives on paper and in texts, hours get billed wrong and clients ask questions nobody can answer. I build simple tools that fix that.</p>
+      <p class="lead">For a crew in the field, that means knowing what got done today and who was on which job, and telling a client where things stand without a phone call. When that lives on paper and in texts, hours get billed wrong. I build simple tools that fix that.</p>
       <p class="where soft">Eastern Townships, Quebec. Ten years in the trades, with UX design alongside.</p>
       <div class="cta">
-        <a class="btn" href="#walk-through">Book a free walk-through</a>
+        <a class="btn" href="#walk-through"><span class="lbl">Book a free walk-through<svg viewBox="0 0 300 14" aria-hidden="true"><path pathLength="1" d="M2 9 C 40 6.5, 95 11.5, 150 9 S 245 6.8, 298 4.5"/></svg></span></a>
       </div>
     </div>
     <div class="art">
@@ -379,22 +462,25 @@
       </div>
     </div>
   </section>
+  </div>
 
-  <section class="help wrap" aria-labelledby="offer">
-    <div class="rule">
-      <h2 id="offer">What I offer</h2>
+  <section class="help" aria-labelledby="offer">
+    <div class="wrap">
+      <div class="rule">
+        <h2 id="offer">What I offer</h2>
+      </div>
+      <p class="desc">Tools built around how your business works, not a generic app you have to work around.</p>
+      <ul>
+        <li><strong>Your paper forms, as an app.</strong> Time sheets, daily reports and job checklists, turned into a simple app your crew fills in on their phone. Hours bill right, and the week doesn’t get pieced together from memory.</li>
+        <li><strong>Your tools talking to each other.</strong> I connect the software you already use, so information is entered once and goes where it needs to.</li>
+        <li><strong>The repeat work, done on its own.</strong> Invoices, reminders, follow-ups and client updates that go out by themselves, so clients know where things stand without calling to ask.</li>
+        <li><strong>The week at a glance.</strong> One place to see hours, jobs and what’s still outstanding, so the day is planned and nothing slips.</li>
+        <li><strong>Straight advice on AI.</strong> Where it would actually save you time, and where it wouldn’t. I’ve built AI features into my own app and cut them when they didn’t hold up, so you’ll get a straight answer.</li>
+      </ul>
     </div>
-    <p class="desc soft">Tools built around how your business works, not a generic app you have to work around.</p>
-    <ul>
-      <li><strong>Hours that bill right.</strong> Your team records their time and work as they go, and it reaches the office on its own, so the week doesn’t get pieced together from memory.</li>
-      <li><strong>A day that’s planned.</strong> Everyone knows what’s happening and when, so you can stay organized and focus on what matters to you.</li>
-      <li><strong>Clients who know where things stand.</strong> Simple updates and a clear timeline, so they aren’t calling to ask.</li>
-      <li><strong>A system for the work you do over and over.</strong> Clear steps for each kind of job, so it’s done right no matter who does it.</li>
-      <li><strong>Less doing things twice.</strong> Your tools connected, so information is entered once and goes where it needs to.</li>
-    </ul>
   </section>
 
-  <section aria-labelledby="chantierlog">
+  <section class="chantierlog" aria-labelledby="chantierlog">
     <div class="wrap">
       <div class="rule head">
         <h2 id="chantierlog">ChantierLog</h2>
@@ -402,7 +488,7 @@
       </div>
       <p class="desc soft">A job-site reporting app. At the end of every day I filled in a paper sheet, pen in hand, and it was a real pain. So I built the app I wanted: easier for crew leads to fill in, and easier for the office to receive and file for billing. It was piloted at the landscaping and excavation company I work for.</p>
 
-      <div class="rows rows-cl">
+      <div class="rows rows-cl" data-strike="chantierlog">
         <div class="row">
           <p class="soft">On the job site</p>
           <dl>
@@ -423,7 +509,7 @@
         </div>
       </div>
 
-      <div class="table-desktop">
+      <div class="table-desktop" data-strike="chantierlog">
         <table class="before-after">
           <thead>
             <tr>
@@ -482,7 +568,7 @@
       <p class="point">It’s where I learned to cut what doesn’t work, even after it’s built.</p>
 
       <h3 class="cut-title">What I cut, and why</h3>
-      <div class="rows rows-sp">
+      <div class="rows rows-sp" data-strike="secondpass">
         <div class="row">
           <dl>
             <dt>Cut</dt>
@@ -509,7 +595,7 @@
         </div>
       </div>
 
-      <div class="table-desktop">
+      <div class="table-desktop" data-strike="secondpass">
         <table class="cut">
           <thead>
             <tr>
@@ -672,6 +758,163 @@
     label();
     button.hidden = false;
     sync();
+  })();
+
+  // The pen lines. Each Before and What I cut is crossed out by the brand's
+  // pen line, one line per wrapped line of text, the first time its table
+  // comes into view; then the After and Why cells darken to Ink. Each table
+  // exists twice (rows on the phone, a table on desktop), so both copies
+  // share one state and the one not shown is drawn too. When the text moves
+  // (a resize, a turn of the phone, the font arriving) the lines are laid
+  // again at their final state; they never play twice. Under Reduce Motion
+  // they are laid already drawn.
+  (function () {
+    var still = !document.documentElement.classList.contains("motion") ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var NS = "http://www.w3.org/2000/svg";
+    var each = function (list, fn) { Array.prototype.forEach.call(list, fn); };
+    var boxes = document.querySelectorAll("[data-strike]");
+    if (!boxes.length) return;
+
+    // The wordmark's line (brand/files/), stretched to a line of text.
+    function pen(w) {
+      var x = function (v) { return (1.5 + (v - 2) * (w - 3) / 296).toFixed(1); };
+      return "M" + x(2) + " 9 C " + x(40) + " 6.5, " + x(95) + " 11.5, " + x(150) +
+        " 9 S " + x(245) + " 6.8, " + x(298) + " 4.5";
+    }
+
+    // One rectangle per rendered line of a cell's text, relative to the cell.
+    function lines(cell) {
+      var range = document.createRange(), c = cell.getBoundingClientRect(), out = [], rects = [];
+      each(cell.childNodes, function (n) {
+        if (n.nodeType !== 3) return; // text only, not the pen lines already in it
+        range.selectNodeContents(n);
+        each(range.getClientRects(), function (r) { rects.push(r); });
+      });
+      rects.forEach(function (r) {
+        if (r.width < 1) return;
+        var top = r.top - c.top - cell.clientTop, left = r.left - c.left - cell.clientLeft;
+        var last = out[out.length - 1];
+        if (last && Math.abs(last.top - top) < 2) {
+          last.width = Math.max(last.left + last.width, left + r.width) - last.left;
+        } else {
+          out.push({ top: top, left: left, width: r.width, height: r.height });
+        }
+      });
+      return out;
+    }
+
+    // Where every line of one copy of a table sits, row by row.
+    function measure(box) {
+      var rows = [];
+      each(box.querySelectorAll(".row, tbody tr"), function (row) {
+        var cell = row.querySelector(".then");
+        if (cell) rows.push({ cell: cell, now: row.querySelector(".now"), lines: lines(cell) });
+      });
+      return rows;
+    }
+    function key(rows) {
+      return rows.map(function (row) {
+        return row.lines.map(function (l) { return [l.top, l.left, l.width].map(Math.round).join(","); }).join(";");
+      }).join("|");
+    }
+
+    // Draw a copy's lines, each with its place in the sequence (250ms apart);
+    // a row's After darkens once its own lines are through.
+    function lay(box, rows) {
+      each(box.querySelectorAll(".pen-line"), function (n) { n.remove(); });
+      var i = 0;
+      rows.forEach(function (row) {
+        row.lines.forEach(function (l) {
+          var w = l.width + 6;
+          var svg = document.createElementNS(NS, "svg");
+          svg.setAttribute("class", "pen-line");
+          svg.setAttribute("aria-hidden", "true");
+          svg.setAttribute("viewBox", "0 0 " + w.toFixed(1) + " 14");
+          svg.style.width = w.toFixed(1) + "px";
+          svg.style.height = "14px";
+          svg.style.left = (l.left - 3).toFixed(1) + "px";
+          svg.style.top = (l.top + l.height * 0.55 - 8).toFixed(1) + "px";
+          var path = document.createElementNS(NS, "path");
+          path.setAttribute("pathLength", "1");
+          path.setAttribute("d", pen(w));
+          path.style.animationDelay = (i * 250) + "ms";
+          svg.appendChild(path);
+          row.cell.appendChild(svg);
+          i++;
+        });
+        if (row.now) row.now.style.animationDelay = (Math.max(i - 1, 0) * 250 + 400) + "ms";
+      });
+      box.setAttribute("data-key", key(rows));
+      return i;
+    }
+
+    var groups = {};
+    each(boxes, function (box) {
+      var name = box.getAttribute("data-strike");
+      (groups[name] = groups[name] || { boxes: [], state: "pending", timer: 0 }).boxes.push(box);
+    });
+
+    function finish(g) {
+      clearTimeout(g.timer);
+      g.state = "done";
+      g.boxes.forEach(function (box) { box.classList.remove("go"); box.classList.add("done"); });
+    }
+
+    function play(g) {
+      if (g.state !== "pending") return;
+      g.state = "go";
+      var count = 0;
+      g.boxes.forEach(function (box) {
+        count = Math.max(count, lay(box, measure(box)));
+        box.classList.add("go");
+      });
+      g.timer = setTimeout(function () { finish(g); }, Math.max(count - 1, 0) * 250 + 1000);
+    }
+
+    // Only when the text has actually moved. Laying again mid-play would
+    // restart it, so a move during play ends it at its final state.
+    function relay() {
+      Object.keys(groups).forEach(function (name) {
+        var g = groups[name];
+        g.boxes.forEach(function (box) {
+          var rows = measure(box);
+          if (key(rows) === box.getAttribute("data-key")) return;
+          if (g.state === "go") finish(g);
+          lay(box, rows);
+        });
+      });
+    }
+
+    Object.keys(groups).forEach(function (name) {
+      var g = groups[name];
+      if (still) finish(g);
+      g.boxes.forEach(function (box) { lay(box, measure(box)); });
+    });
+
+    var queued = false;
+    function queue() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; relay(); });
+    }
+    if ("ResizeObserver" in window) {
+      var ro = new ResizeObserver(queue);
+      each(boxes, function (box) { ro.observe(box); });
+    }
+    window.addEventListener("resize", queue);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(queue);
+
+    if (still) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var g = groups[e.target.getAttribute("data-strike")];
+        g.boxes.forEach(function (box) { io.unobserve(box); });
+        play(g);
+      });
+    }, { rootMargin: "0px 0px -25% 0px" });
+    each(boxes, function (box) { io.observe(box); });
   })();
 </script>
 </body>
