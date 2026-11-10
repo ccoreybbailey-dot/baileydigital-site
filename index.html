@@ -94,6 +94,12 @@
     margin: 0; background: var(--paper); color: var(--ink);
     font-family: "Libre Franklin", "Helvetica Neue", Helvetica, sans-serif;
   }
+  /* Safari on iPhone paints the strip behind the status bar, and the toolbar
+     edges, in the page's own colour. So the page is navy while the navy top
+     fills the top of the screen (the script at the end sets .at-top), and
+     white below it; <main> carries the white so nothing on the page moves. */
+  main { display: block; background: var(--paper); }
+  html.at-top body { background: var(--navy); }
   img, video { display: block; }
   a { color: var(--ballpoint); text-underline-offset: 3px; }
   a:hover { text-decoration-thickness: 2px; }
@@ -915,6 +921,25 @@
       });
     }, { rootMargin: "0px 0px -25% 0px" });
     each(boxes, function (box) { io.observe(box); });
+  })();
+
+  // The page's colour behind the status bar: navy while the navy top is
+  // still under it, white once it has scrolled away (see .at-top above).
+  (function () {
+    var top = document.querySelector("main > .top");
+    if (!top) return;
+    var root = document.documentElement, queued = false;
+    function set() {
+      queued = false;
+      root.classList.toggle("at-top", top.getBoundingClientRect().bottom > 0);
+    }
+    window.addEventListener("scroll", function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(set);
+    }, { passive: true });
+    window.addEventListener("resize", set);
+    set();
   })();
 </script>
 </body>
