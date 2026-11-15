@@ -94,12 +94,7 @@
     margin: 0; background: var(--paper); color: var(--ink);
     font-family: "Libre Franklin", "Helvetica Neue", Helvetica, sans-serif;
   }
-  /* Safari on iPhone paints the strip behind the status bar, and the toolbar
-     edges, in the page's own colour. So the page is navy while the navy top
-     fills the top of the screen (the script at the end sets .at-top), and
-     white below it; <main> carries the white so nothing on the page moves. */
   main { display: block; background: var(--paper); }
-  html.at-top body { background: var(--navy); }
   img, video { display: block; }
   a { color: var(--ballpoint); text-underline-offset: 3px; }
   a:hover { text-decoration-thickness: 2px; }
@@ -136,19 +131,30 @@
   .top .lead, .top .soft { color: var(--navy-soft); }
   .top .btn { background: #FFFFFF; color: var(--navy); }
 
+  /* The header bar stays at the top while the page scrolls, over everything
+     on the page, with a soft shadow under it. Static: nothing about it moves
+     or changes as you scroll. Safari on iPhone paints the strip behind the
+     clock from this bar, so it stays navy all the way down. In-page jumps
+     stop below the bar (scroll-padding-top, matched to its height). */
+  body > .top { position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 12px rgba(10, 14, 30, 0.28); }
+  html { scroll-padding-top: 104px; }
+
   header.wrap {
-    padding-block: 20px;
+    padding-block: 11px;
     display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px;
   }
   /* The wordmark SVG is drawn at 60px type: in em here so it scales with the
      font-size. Its text baseline (y 46 of 74) sits on the line's baseline and
      the negative margin keeps the pen line below it out of the layout. */
-  .wordmark { font-size: 20px; line-height: 26px; }
+  .wordmark { font-size: 20px; line-height: 26px; text-decoration: none; }
   .wordmark img {
     display: inline; width: auto; height: calc(74em / 60);
     margin: 0 0 calc(-28em / 60) calc(-2em / 60); vertical-align: baseline;
   }
   header a { font-size: 15px; line-height: 22px; }
+  /* The header's two links, kept together: beside the wordmark when there
+     is room, on the line under it when not. */
+  header .links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; }
 
   /* hero */
   .hero { padding-top: 48px; padding-bottom: 72px; }
@@ -280,7 +286,7 @@
   .dark button.btn { border: 0; font-family: inherit; cursor: pointer; }
 
   /* The footer: one link to the Blog, styled like the blog pages' footer
-     (_layouts/blog.html). White, so the status-bar colour is untouched. */
+     (_layouts/blog.html). */
   footer { background: var(--paper); }
   footer.wrap { padding-top: 32px; padding-bottom: 48px; }
   footer .line { margin: 0; border-top: 1px solid var(--rule); padding-top: 24px; font-size: 15px; line-height: 22px; }
@@ -291,10 +297,12 @@
     .wrap { max-width: 1200px; padding: 0 48px; }
     footer.wrap { padding-bottom: 64px; }
 
+    html { scroll-padding-top: 120px; }
     header.wrap { padding-block: 28px; gap: 12px 32px; }
     .wordmark { font-size: 22px; line-height: 28px; }
     header a { font-size: 17px; line-height: 24px; }
     header .hit { padding-block: 10px; margin-block: -10px; }
+    header .links { gap: 12px 32px; }
 
     .hero {
       padding-top: 96px; padding-bottom: 120px;
@@ -417,12 +425,15 @@
 {"@context":"https://schema.org","@type":"Organization","name":"BaileyDigital","url":"https://baileydigital.io/","logo":"https://baileydigital.io/logo.png"}
 </script>
 </head>
-<body>
+<body id="top">
 
 <div class="top">
 <header class="wrap">
-  <span class="wordmark"><img src="img/wordmark-navy.svg" width="356" height="74" alt="BaileyDigital"></span>
-  <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
+  <a class="wordmark" href="#top"><img src="img/wordmark-navy.svg" width="356" height="74" alt="BaileyDigital"></a>
+  <nav class="links" aria-label="Site">
+    <a class="hit" href="/blog/">Blog</a>
+    <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
+  </nav>
 </header>
 </div>
 
@@ -932,25 +943,6 @@
       });
     }, { rootMargin: "0px 0px -25% 0px" });
     each(boxes, function (box) { io.observe(box); });
-  })();
-
-  // The page's colour behind the status bar: navy while the navy top is
-  // still under it, white once it has scrolled away (see .at-top above).
-  (function () {
-    var top = document.querySelector("main > .top");
-    if (!top) return;
-    var root = document.documentElement, queued = false;
-    function set() {
-      queued = false;
-      root.classList.toggle("at-top", top.getBoundingClientRect().bottom > 0);
-    }
-    window.addEventListener("scroll", function () {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(set);
-    }, { passive: true });
-    window.addEventListener("resize", set);
-    set();
   })();
 </script>
 </body>
