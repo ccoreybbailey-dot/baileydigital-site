@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title | escape }} — BaileyDigital</title>
+<meta name="description" content="{{ page.description | escape }}">
+<meta name="author" content="Corey Bailey">
+<link rel="canonical" href="https://baileydigital.io{{ page.url }}">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:url" content="https://baileydigital.io{{ page.url }}">
+<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:description" content="{{ page.description | escape }}">
+<meta property="og:image" content="https://baileydigital.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BaileyDigital. I’m Corey Bailey. I design and build apps for small businesses.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page.title | escape }}">
+<meta name="twitter:description" content="{{ page.description | escape }}">
+<meta name="twitter:image" content="https://baileydigital.io/og.png">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
+{% feed_meta %}
+<!--
+  The shell for the Blog: the listing and every post. Built by GitHub
+  Pages' own Jekyll; a post is one Markdown file in _posts/.
+  Rules for these pages: the words are Corey's, as written. No script, no
+  animation, no transitions. Nothing beside the post competes with it: no
+  sidebar, related posts, share buttons or sign-up. Light only, like the
+  rest of the site. The JSON-LD block below is data for search engines,
+  not a script.
+-->
+<style>
+  /* Copied from thanks/index.html (font, tokens, base text, .wrap, .hit,
+     the white header with wordmark.svg). If those change there, change
+     them here too. */
+  @font-face {
+    font-family: "Libre Franklin";
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url(/fonts/libre-franklin-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  :root {
+    --paper: #FFFFFF;
+    --ink: #16181C;
+    --pencil: #5A5F68;
+    --rule: #D7DADF;
+    --ballpoint: #2A47B8;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Libre Franklin", "Helvetica Neue", Helvetica, sans-serif;
+  }
+  a { color: var(--ballpoint); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 3px solid var(--ballpoint); outline-offset: 3px; }
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+  .soft { color: var(--pencil); }
+  .hit { display: inline-block; padding-block: 11px; margin-block: -11px; }
+
+  header.wrap { padding-block: 20px; }
+  /* The wordmark SVG is drawn at 60px type: in em here so it scales with the
+     font-size. Its text baseline (y 46 of 74) sits on the line's baseline and
+     the negative margin keeps the pen line below it out of the layout. */
+  .wordmark { font-size: 20px; line-height: 26px; }
+  .wordmark img {
+    display: inline; width: auto; height: calc(74em / 60);
+    margin: 0 0 calc(-28em / 60) calc(-2em / 60); vertical-align: baseline;
+  }
+
+  main.wrap { padding-top: 48px; padding-bottom: 72px; }
+  h1 { margin: 0; font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -0.01em; }
+  .desc { margin: 8px 0 0; font-size: 17px; line-height: 26px; }
+
+  /* the listing */
+  .posts { margin: 32px 0 0; padding: 0; list-style: none; }
+  .posts li { padding-block: 16px; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 4px; }
+  .posts a { font-size: 17px; line-height: 26px; font-weight: 600; }
+  .posts time { font-size: 15px; line-height: 22px; }
+
+  /* a post: one reading column, about 30em */
+  .post { max-width: 30em; font-size: 17px; }
+  .post .label { font-size: 15px; line-height: 22px; }
+  .post h1 { margin-top: 16px; }
+  .post .byline { margin: 8px 0 0; font-size: 15px; line-height: 22px; }
+  .post .body { margin-top: 32px; line-height: 26px; }
+  .post .body p { margin: 0; }
+  .post .body p + p { margin-top: 16px; }
+
+  footer.wrap { padding-bottom: 48px; }
+  footer .line { margin: 0; border-top: 1px solid var(--rule); padding-top: 24px; font-size: 15px; line-height: 22px; }
+
+  @media (min-width: 960px) {
+    .wrap { max-width: 1200px; padding: 0 48px; }
+    header.wrap { padding-block: 28px; }
+    .wordmark { font-size: 22px; line-height: 28px; }
+    main.wrap { padding-top: 96px; padding-bottom: 120px; }
+    h1 { font-size: 36px; line-height: 44px; }
+    .desc { max-width: 640px; font-size: 18px; line-height: 28px; }
+    .posts { max-width: 640px; }
+    .posts a { font-size: 18px; line-height: 28px; }
+    .post { font-size: 18px; }
+    .post .body { margin-top: 40px; line-height: 28px; }
+    .post .body p + p { margin-top: 24px; }
+    footer.wrap { padding-bottom: 64px; }
+  }
+</style>
+{%- if page.layout == 'post' %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ page.description | jsonify }},"datePublished":"{{ page.date | date: '%Y-%m-%d' }}","author":{"@type":"Person","name":"Corey Bailey","url":"https://baileydigital.io/"},"publisher":{"@type":"Organization","name":"BaileyDigital","url":"https://baileydigital.io/","logo":"https://baileydigital.io/logo.png"},"image":"https://baileydigital.io/og.png","mainEntityOfPage":"https://baileydigital.io{{ page.url }}","inLanguage":"en"}
+</script>
+{%- endif %}
+</head>
+<body>
+
+<header class="wrap">
+  <a class="wordmark" href="/"><img src="/img/wordmark.svg" width="356" height="74" alt="BaileyDigital"></a>
+</header>
+
+<main class="wrap">
+{{ content }}
+</main>
+
+<footer class="wrap">
+  <p class="line"><a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a></p>
+</footer>
+
+</body>
+</html>

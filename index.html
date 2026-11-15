@@ -279,10 +279,17 @@
   .field textarea { resize: vertical; }
   .dark button.btn { border: 0; font-family: inherit; cursor: pointer; }
 
+  /* The footer: one link to the Blog, styled like the blog pages' footer
+     (_layouts/blog.html). White, so the status-bar colour is untouched. */
+  footer { background: var(--paper); }
+  footer.wrap { padding-top: 32px; padding-bottom: 48px; }
+  footer .line { margin: 0; border-top: 1px solid var(--rule); padding-top: 24px; font-size: 15px; line-height: 22px; }
+
   /* ---------- desktop board ---------- */
 
   @media (min-width: 960px) {
     .wrap { max-width: 1200px; padding: 0 48px; }
+    footer.wrap { padding-bottom: 64px; }
 
     header.wrap { padding-block: 28px; gap: 12px 32px; }
     .wordmark { font-size: 22px; line-height: 28px; }
@@ -721,6 +728,10 @@
   </section>
 
 </main>
+
+<footer class="wrap">
+  <p class="line"><a class="hit" href="/blog/">Blog</a></p>
+</footer>
 
 <script>
   // The demo video. It plays on its own only when the reader has not asked

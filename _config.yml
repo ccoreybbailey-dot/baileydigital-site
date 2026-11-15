@@ -1,0 +1,18 @@
+title: BaileyDigital
+description: "Corey Bailey on building tools for trades companies, and on the thinking that makes the work clearer."
+url: https://baileydigital.io
+author: Corey Bailey
+timezone: America/Toronto
+permalink: /blog/:title/
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+feed:
+  path: blog/feed.xml
+markdown: kramdown
+# thanks/ is noindex, so it stays out of the sitemap too.
+defaults:
+  - scope:
+      path: "thanks"
+    values:
+      sitemap: false
