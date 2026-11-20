@@ -94,6 +94,9 @@
     --sc-font-display: var(--font); --sc-font-text: var(--font);
     --gutter-l: max(clamp(20px, 5vw, 88px), env(safe-area-inset-left, 0px));
     --gutter-r: max(clamp(20px, 5vw, 88px), env(safe-area-inset-right, 0px));
+    /* the .wrap column's content edges, so the hero lines up with every section below it */
+    --edge-l: max(var(--gutter-l), calc((100vw - 78rem) / 2 + var(--gutter-l)));
+    --edge-r: max(var(--gutter-r), calc((100vw - 78rem) / 2 + var(--gutter-r)));
     color-scheme: light;
   }
   body { background: var(--sc-canvas); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.6; }
@@ -109,7 +112,7 @@
   /* ---------- bar ---------- */
   body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 70; background: var(--navy); }
   .bar { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 60;
-    display: flex; align-items: center; gap: 24px; padding: 14px var(--gutter-r) 14px var(--gutter-l);
+    display: flex; align-items: center; gap: 24px; padding: 14px var(--edge-r) 14px var(--edge-l);
     color: var(--white); transition: background-color 240ms ease, color 240ms ease, box-shadow 240ms ease; }
   .bar.is-light { background: rgba(255,255,255,.96); color: var(--ink); box-shadow: 0 1px 0 var(--rule); }
   .bar__mark { display: block; height: 26px; width: auto; }
@@ -138,13 +141,13 @@
   #hero .hero { background: var(--navy); }
   .hero__glow { position: absolute; z-index: 0; width: 70vmax; height: 70vmax; left: 52%; top: 50%; translate: -10% -50%; border-radius: 50%; pointer-events: none;
     background: radial-gradient(closest-side, rgba(129,151,242,.16), rgba(129,151,242,.05) 55%, rgba(22,32,63,0)); will-change: transform; }
-  .hero__copy { position: absolute; z-index: 3; left: var(--gutter-l); top: 50%; translate: 0 -50%; width: min(36rem, 44vw); will-change: transform; }
+  .hero__copy { position: absolute; z-index: 3; left: var(--edge-l); top: 50%; translate: 0 -50%; width: min(36rem, 44vw); will-change: transform; }
   .hero__name { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 500; }
   .hero__name img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
   .hero h1 { margin-top: 18px; font-size: clamp(2.3rem, 1.4rem + 3.2vw, 4.4rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.03em; }
   .hero__sub { margin-top: 20px; font-size: 18px; max-width: 34ch; }
   .hero__cta { margin-top: 30px; }
-  .lock { position: absolute; z-index: 2; right: max(var(--gutter-r), 7vw); top: 50%; translate: 0 -50%;
+  .lock { position: absolute; z-index: 2; right: calc(var(--edge-r) + 5vw); top: 50%; translate: 0 -50%;
     height: min(82svh, 760px); aspect-ratio: 9 / 19.5; max-width: 100%; border-radius: 52px; padding: 11px; background: #0B0E16;
     box-shadow: 0 2px 4px rgba(4,6,14,.4), 0 40px 80px -20px rgba(4,6,14,.7), inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(255,255,255,.06);
     will-change: transform; }
@@ -197,6 +200,8 @@
   /* ---------- 3 ChantierLog (peak) ---------- */
   .peak { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 80px);
     padding-left: var(--gutter-l); padding-right: var(--gutter-r); max-width: 84rem; margin-inline: auto; }
+  /* its copy starts on the column's edge; the media's right side stays where the 84rem stage puts it */
+  .peak { padding-left: calc(var(--edge-l) - max(0px, (100vw - 84rem) / 2)); }
   .peak__copy { min-width: 0; }
   .peak h2 { font-size: clamp(2.2rem, 1.4rem + 2.6vw, 3.8rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
   .peak__site { display: inline-block; margin-top: 10px; color: var(--pen); font-size: 15px; text-underline-offset: 4px; }
@@ -232,7 +237,7 @@
 
   /* ---------- 4 offers (blue band, pan) ---------- */
   .offers { background: var(--blue); display: flex; align-items: center; height: 100%; }
-  .rail { gap: clamp(28px, 4vw, 64px); padding-left: var(--gutter-l); padding-right: 12vw; align-items: stretch; }
+  .rail { gap: clamp(28px, 4vw, 64px); padding-left: var(--edge-l); padding-right: 12vw; align-items: stretch; }
   .rail__lead { flex: 0 0 min(30rem, 84vw); align-self: center; }
   .rail__lead h2 { font-size: clamp(2.4rem, 1.5rem + 3vw, 4.4rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
   .rail__lead p { margin-top: 18px; font-size: 19px; max-width: 30ch; }
@@ -314,7 +319,7 @@
     [data-sc-act="pan"] [data-sc-stage] { height: auto; overflow: visible; scroll-snap-type: none; }
     .offers { height: auto; display: block; padding-block: clamp(96px, 14vh, 170px); }
     .rail { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
-      padding-right: var(--gutter-r); align-items: start; }
+      padding-right: var(--edge-r); align-items: start; }
     .rail__lead { grid-column: 1 / -1; }
     .offer { align-self: stretch; }
   }
