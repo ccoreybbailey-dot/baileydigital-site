@@ -1,8 +1,12 @@
+---
+# The words on this page are in _data/home.yml. This file is the markup
+# and the motion timing; js/home.js is the movement.
+---
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BaileyDigital — Corey Bailey</title>
 <meta name="description" content="Keep your team organized and your clients in the loop. Simple tools for small businesses, starting with a free walk-through.">
 <link rel="canonical" href="https://baileydigital.io/">
@@ -23,927 +27,529 @@
 <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/libre-franklin-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <!--
-  Built from the approved boards Site-desktop (1440) and Site-phone (390).
-  Every word and length comes off those boards; copy.md holds the reasons
-  for the words. The colours and the movement come from Revision 4 (the
-  CCO's colour board, direction A, and handoff.md). Change none of them
-  here without changing them there.
+  Built from the approved draft, scrollcraft/builds/baileydigital/index.html
+  (the CCO's, handoff.md amendment 2026-11-20 §S1). Its look and movement
+  are reproduced as drawn; change them there first.
 
   Rules for this page:
+    · Every word is in _data/home.yml and is written into this HTML when the
+      site is built, so view-source has all of it. A phrase the pen line
+      crosses out is marked ~~like this~~ in that file
+      (_includes/strike.html turns the marks into spans).
     · One form, in the close: a plain HTML POST to Web3Forms
       (api.web3forms.com), no script, no captcha, nothing stored on the
-      site. The answers arrive by email. mailto:corey@baileydigital.io
-      stays beside it. Otherwise no analytics, no cookies, no third-party
-      requests. The font is self-hosted (fonts/, OFL licence beside it).
-    · The logo is outlined SVG (img/): wordmark-navy.svg on the navy top,
-      wordmark.svg on white (thanks/). The logo never animates. The icons
-      are files at the root, and the JSON-LD block below is data for
-      search engines, not a script.
-    · Colour: Navy behind the header and hero, a Ballpoint band behind
-      What I offer, white everywhere else.
-    · Script is inline and small: one line in the head that marks the
-      page as able to move, and one block at the end for the demo video
-      and the movement. Movement plays once and never loops. With Reduce
-      Motion on, nothing moves and the pen lines are already drawn.
-      Without script, nothing is hidden: the page reads as plain text.
+      site. The answers arrive by email. Otherwise no analytics, no cookies,
+      no third-party requests. The font is self-hosted (fonts/, OFL licence
+      beside it).
+    · The scroll engine is scroll-craft (js/scrollcraft.js,
+      css/scrollcraft.css, MIT, licence in js/), used as is and never
+      edited. The page's own movement is js/home.js. With Reduce Motion on,
+      nothing moves, every pen line is already drawn, the phone shows its
+      handled state, and there is no landing sequence.
+    · The JSON-LD block below is data for search engines, not a script.
     · English only. Never claim bilingual.
     · ChantierLog was piloted, not "live in production". Say no more than that.
   The screenshots and the demo video use the made-up "Paysagement Démo"
-  data, not a real crew or client.
-
-  Layout: below 960px the page follows the phone board, in a column capped
-  at 640px; from 960px it follows the desktop board.
+  data, not a real crew or client. The names and messages on the hero's
+  phone are made-up examples too.
 -->
-<script>
-  // Before first paint: the movement's start states (phones low, After cells
-  // in Pencil, pen lines undrawn) only apply under this class, so a page
-  // without script never hides anything.
-  if ("IntersectionObserver" in window) document.documentElement.classList.add("motion");
-</script>
+<script>try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("js-intro")}catch(e){}</script>
+<link rel="stylesheet" href="/css/scrollcraft.css">
 <style>
+  /* Self-hosted, a variable font (weights 100 to 900 in the file); the page
+     uses 400, 500, 600 and 700. */
   @font-face {
     font-family: "Libre Franklin";
     font-style: normal;
-    font-weight: 400 600;
+    font-weight: 400 700;
     font-display: swap;
-    src: url(fonts/libre-franklin-latin.woff2) format("woff2");
+    src: url(/fonts/libre-franklin-latin.woff2) format("woff2");
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
+  /* Images and the video carry width and height so nothing shifts as they
+     load; this keeps their CSS width in charge of the size. */
+  :where(img, video) { height: auto; }
+
+  /* Layout: a pinned hero in navy (the owner's phone at 7pm), then white pages of proof; one blue band for the offers; navy again to close.
+     One device runs through it all: the logo's ballpoint line, drawn by scroll. Single committed light look (the brand's). */
   :root {
-    --paper: #FFFFFF;
+    --navy: #16203F;
+    --pen: #2A47B8;
+    --blue: #2A47B8;
+    --pen-on-navy: #8197F2;
     --ink: #16181C;
     --pencil: #5A5F68;
     --rule: #D7DADF;
-    --bench: #EDEEF0;
-    --ballpoint: #2A47B8;
-    --frame: #111214;
-    --frame-edge: #2E3035;
-    --frame-button: #2A2C31;
-    --island: #000000;
-    --strip: #1A5B27;
-    --navy: #16203F;
-    --navy-soft: #B9C2DC;
-    --ballpoint-soft: #D3DBFA;
+    --bench: #F1F2F4;
+    --paper: #FFFFFF;
+    --white: #FFFFFF;
+    --font: "Libre Franklin", "Helvetica Neue", Arial, system-ui, sans-serif;
+
+    --sc-canvas: #16203F; --sc-surface: #FFFFFF;
+    --sc-ink: #16181C; --sc-ink-soft: #5A5F68;
+    --sc-accent: #2A47B8; --sc-accent-ink: #FFFFFF;
+    --sc-font-display: var(--font); --sc-font-text: var(--font);
+    --gutter-l: max(clamp(20px, 5vw, 88px), env(safe-area-inset-left, 0px));
+    --gutter-r: max(clamp(20px, 5vw, 88px), env(safe-area-inset-right, 0px));
+    color-scheme: light;
   }
-  *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; background: var(--paper); color: var(--ink);
-    font-family: "Libre Franklin", "Helvetica Neue", Helvetica, sans-serif;
+  body { background: var(--sc-canvas); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.6; }
+  h1, h2, h3, p { margin: 0; }
+  h1, h2 { text-wrap: balance; }
+  .wrap { max-width: 78rem; margin-inline: auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .on-dark { color: var(--white); --pen: var(--pen-on-navy); }
+  .muted { color: var(--pencil); }
+  .on-dark .muted { color: rgba(255,255,255,.72); }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; border-radius: 3px; }
+
+  /* ---------- bar ---------- */
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 70; background: var(--navy); }
+  .bar { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 60;
+    display: flex; align-items: center; gap: 24px; padding: 14px var(--gutter-r) 14px var(--gutter-l);
+    color: var(--white); transition: background-color 240ms ease, color 240ms ease, box-shadow 240ms ease; }
+  .bar.is-light { background: rgba(255,255,255,.96); color: var(--ink); box-shadow: 0 1px 0 var(--rule); }
+  .bar__mark { display: block; height: 26px; width: auto; }
+  .bar__mark { --wm-line: #8197F2; }
+  .bar.is-light .bar__mark { --wm-line: #2A47B8; }
+  .bar nav { margin-left: auto; display: flex; align-items: center; gap: 22px; font-size: 15px; }
+  .bar nav a.text { text-decoration: none; opacity: .86; }
+  .bar nav a.text:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+  .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 3px;
+    font: 500 15px/1 var(--font); text-decoration: none; border: 0; cursor: pointer;
+    background: var(--pen); color: var(--white); transition: transform 160ms ease, background-color 160ms ease; }
+  .btn:active { transform: scale(.98); }
+  .on-dark .btn, .bar:not(.is-light) .btn { background: var(--white); color: var(--navy); }
+  .btn--lg { min-height: 52px; padding: 0 24px; font-size: 17px; }
+  @media (max-width: 560px) { .bar nav .text { display: none; } .bar .btn { min-height: 40px; padding: 0 14px; font-size: 14px; } .bar__mark { height: 22px; } }
+
+  /* ---------- pen line (signature) ---------- */
+  [data-pen-host] { position: relative; }
+  .pen-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+  .pen-svg path { fill: none; stroke: var(--pen); stroke-linecap: round; stroke-linejoin: round; }
+  .strike { transition: color 420ms ease; }
+  .strike.is-struck { color: var(--pencil); }
+  .on-dark .strike.is-struck { color: rgba(255,255,255,.55); }
+
+  /* ---------- 1 hero: the owner's phone at 7pm ---------- */
+  #hero .hero { background: var(--navy); }
+  .hero__glow { position: absolute; z-index: 0; width: 70vmax; height: 70vmax; left: 52%; top: 50%; translate: -10% -50%; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(129,151,242,.16), rgba(129,151,242,.05) 55%, rgba(22,32,63,0)); will-change: transform; }
+  .hero__copy { position: absolute; z-index: 3; left: var(--gutter-l); top: 50%; translate: 0 -50%; width: min(36rem, 44vw); will-change: transform; }
+  .hero__name { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 500; }
+  .hero__name img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+  .hero h1 { margin-top: 18px; font-size: clamp(2.3rem, 1.4rem + 3.2vw, 4.4rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.03em; }
+  .hero__sub { margin-top: 20px; font-size: 18px; max-width: 34ch; }
+  .hero__cta { margin-top: 30px; }
+  .lock { position: absolute; z-index: 2; right: max(var(--gutter-r), 7vw); top: 50%; translate: 0 -50%;
+    height: min(82svh, 760px); aspect-ratio: 9 / 19.5; max-width: 100%; border-radius: 52px; padding: 11px; background: #0B0E16;
+    box-shadow: 0 2px 4px rgba(4,6,14,.4), 0 40px 80px -20px rgba(4,6,14,.7), inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(255,255,255,.06);
+    will-change: transform; }
+  .lock__screen { position: relative; height: 100%; border-radius: 42px; overflow: hidden; padding: 0 12px;
+    background: radial-gradient(120% 70% at 30% 0%, #2B3E78 0%, #17223F 45%, #0C1122 100%); color: #fff; }
+  .lock__time { text-align: center; padding-top: 13%; font-size: clamp(54px, 7.2svh, 76px); font-weight: 500; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .lock__date { text-align: center; margin-top: 6px; font-size: 15px; font-weight: 500; opacity: .82; }
+  .lock__list { margin-top: 11%; display: grid; gap: 8px; }
+  .nt { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; padding: 10px 12px; border-radius: 18px;
+    background: rgba(240,243,250,.16); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); will-change: transform, opacity; }
+  /* landing moment: the screen wakes and the evening arrives, one message at a time */
+  .lock__screen::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit;
+    background: #04060C; opacity: 0; transition: opacity 650ms ease; }
+  .js-intro .lock:not(.is-awake) .lock__screen::after { opacity: .9; }
+  .js-intro .nt { opacity: 0; translate: 0 -12px; scale: .96; }
+  .js-intro .nt.is-in { opacity: 1; translate: 0 0; scale: 1;
+    transition: opacity 380ms ease, translate 560ms cubic-bezier(.23,1,.32,1), scale 560ms cubic-bezier(.23,1,.32,1); }
+  @keyframes buzz { 0%, 100% { rotate: 0deg; } 20% { rotate: -0.9deg; } 40% { rotate: 0.9deg; } 60% { rotate: -0.6deg; } 80% { rotate: 0.6deg; } }
+  .lock.buzz { animation: buzz 280ms linear; }
+  .nt { will-change: transform, opacity; }
+  .nt__icon { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; }
+  .nt__icon svg { width: 20px; height: 20px; }
+  .ic-call, .ic-msg { background: #34C759; } .ic-rem { background: #FFFFFF; } .ic-rem svg { color: #FF9500; }
+  .nt__top { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; line-height: 1.25; }
+  .nt__top b { font-weight: 600; } .nt__top span { opacity: .66; white-space: nowrap; }
+  .nt__msg { display: grid; margin-top: 2px; font-size: 13.5px; line-height: 1.3; }
+  .nt__old, .nt__new { grid-area: 1 / 1; }
+  .nt__old { position: relative; will-change: opacity; }
+  .nt__old .strike.is-struck { color: rgba(255,255,255,.6); }
+  .nt__new { opacity: 0; display: flex; gap: 6px; align-items: baseline; color: #DDE4FF; will-change: opacity; }
+  .nt__new::before { content: ""; flex: 0 0 auto; width: 9px; height: 5px; border-left: 2px solid var(--pen-on-navy); border-bottom: 2px solid var(--pen-on-navy); rotate: -45deg; translate: 0 -2px; }
+  @media (max-width: 860px) {
+    .hero__copy { top: calc(72px + env(safe-area-inset-top, 0px)); translate: none; width: auto; right: var(--gutter-r); }
+    .hero h1 { font-size: clamp(1.9rem, 7.6vw, 2.5rem); margin-top: 12px; }
+    .hero__name { font-size: 16px; } .hero__name img { width: 30px; height: 30px; }
+    .hero__sub { font-size: 15px; margin-top: 12px; }
+    .hero__cta { margin-top: 18px; }
+    .lock { right: 50%; translate: 50% 0; top: calc(380px + env(safe-area-inset-top, 0px)); height: min(98svh, 760px); }
+    .lock__time { padding-top: 9%; font-size: 52px; } .lock__list { margin-top: 7%; gap: 6px; }
+    .hero__glow { left: 50%; top: 80%; translate: -50% -50%; }
   }
-  main { display: block; background: var(--paper); }
-  img, video { display: block; }
-  a { color: var(--ballpoint); text-underline-offset: 3px; }
-  a:hover { text-decoration-thickness: 2px; }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--ballpoint); outline-offset: 3px; }
-  .dark a:focus-visible, .dark button:focus-visible { outline-color: #FFFFFF; }
-  .dark input:focus-visible, .dark textarea:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
-  .top a:focus-visible { outline-color: #FFFFFF; }
+  @media (max-width: 860px) and (max-height: 760px) { .lock__time, .lock__date { display: none; } .lock__list { margin-top: 14px; } }
 
-  /* ---------- phone board (base) ---------- */
+  /* ---------- 2 where things get lost ---------- */
+  .lost { padding-block: clamp(96px, 16vh, 180px); background: transparent; }
+  .lost__lines { display: grid; gap: 28px; max-width: 30ch; font-size: clamp(1.6rem, 1.1rem + 1.9vw, 2.7rem); line-height: 1.22; letter-spacing: -0.02em; font-weight: 500; }
+  .lost__lines p:first-child { color: var(--pencil); }
+  .lost__lines .land { font-weight: 700; color: var(--ink); }
 
-  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
-  .soft { color: var(--pencil); }
-
-  /* Text links: a 44px hit area without moving anything. */
-  .hit { display: inline-block; padding-block: 11px; margin-block: -11px; }
-
-  .btn {
-    display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px;
-    border-radius: 3px; background: var(--ballpoint); color: #FFFFFF;
-    font-size: 18px; line-height: 24px; font-weight: 600; text-decoration: none;
+  /* ---------- 3 ChantierLog (peak) ---------- */
+  .peak { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 80px);
+    padding-left: var(--gutter-l); padding-right: var(--gutter-r); max-width: 84rem; margin-inline: auto; }
+  .peak__copy { min-width: 0; }
+  .peak h2 { font-size: clamp(2.2rem, 1.4rem + 2.6vw, 3.8rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+  .peak__site { display: inline-block; margin-top: 10px; color: var(--pen); font-size: 15px; text-underline-offset: 4px; }
+  .rows { margin-top: clamp(24px, 5vh, 48px); display: grid; gap: clamp(22px, 4vh, 40px); }
+  .row { display: grid; gap: 8px; border-top: 1px solid var(--rule); padding-top: 16px; }
+  .row h3 { font-size: 14px; font-weight: 600; color: var(--pencil); letter-spacing: .01em; }
+  .row .before { font-size: clamp(1.2rem, 1rem + .8vw, 1.6rem); line-height: 1.3; letter-spacing: -0.01em; font-weight: 500; }
+  .row .after { font-size: clamp(1.05rem, .95rem + .4vw, 1.25rem); line-height: 1.45; max-width: 40ch; }
+  .row .after b { font-weight: 600; color: var(--pen); }
+  .peak__media { position: relative; min-width: 0; height: min(78svh, 680px); }
+  .peak__phone { position: absolute; left: 14%; top: 0; width: min(46%, 300px); }
+  .peak__email { position: absolute; right: 0; bottom: 4%; width: min(70%, 460px); }
+  .peak__email img { display: block; width: 100%; border-radius: 10px; box-shadow: 0 2px 4px rgba(5,8,18,.12), 0 26px 50px -14px rgba(5,8,18,.38); border: 1px solid var(--rule); }
+  .peak figcaption { margin-top: 10px; font-size: 13px; color: var(--pencil); }
+  @media (max-width: 860px) {
+    .peak { grid-template-columns: 1fr; align-content: start; gap: 18px; padding-top: calc(76px + env(safe-area-inset-top, 0px)); height: 100%; }
+    .rows { margin-top: 18px; gap: 14px; }
+    .row { padding-top: 10px; gap: 4px; }
+    .row .before { font-size: 1.1rem; } .row .after { font-size: 1rem; }
+    .peak__media { height: auto; min-height: 0; flex: 1; }
+    .peak__phone { position: relative; left: 4%; width: 34vw; }
+    .peak__email { width: 58vw; bottom: auto; top: 22%; }
+    .peak figcaption { display: none; }
   }
-  /* The hero button's pen line: drawn under the label on hover and focus. */
-  .btn .lbl { position: relative; }
-  .btn .lbl svg { position: absolute; left: -2px; top: calc(100% - 1px); width: calc(100% + 4px); height: auto; overflow: visible; }
-  .btn .lbl path {
-    fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round;
-    stroke-dasharray: 1 2; stroke-dashoffset: 1; visibility: hidden;
-  }
-  .btn:hover .lbl path, .btn:focus-visible .lbl path { stroke-dashoffset: 0; visibility: visible; }
+  @media (max-width: 860px) and (max-height: 700px) { .peak__phone { width: 26vw; } .peak__email { width: 48vw; } }
 
-  /* The navy top: header and hero, full width. */
-  .top { background: var(--navy); color: #FFFFFF; }
-  .top a { color: var(--navy-soft); }
-  .top .lead, .top .soft { color: var(--navy-soft); }
-  .top .btn { background: #FFFFFF; color: var(--navy); }
+  .story { padding-block: clamp(72px, 12vh, 140px); }
+  .story__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .story p { font-size: 19px; max-width: 46ch; }
+  .story video { width: 100%; border-radius: 10px; background: var(--bench); box-shadow: 0 2px 4px rgba(5,8,18,.1), 0 22px 44px -16px rgba(5,8,18,.3); }
+  .story figcaption { margin-top: 10px; font-size: 13px; color: var(--pencil); }
+  @media (max-width: 860px) { .story__grid { grid-template-columns: 1fr; } }
 
-  /* The header bar stays at the top while the page scrolls, over everything
-     on the page, with a soft shadow under it. Static: nothing about it moves
-     or changes as you scroll. Safari on iPhone paints the strip behind the
-     clock from this bar, so it stays navy all the way down. In-page jumps
-     stop below the bar (scroll-padding-top, matched to its height). */
-  body > .top { position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 12px rgba(10, 14, 30, 0.28); }
-  html { scroll-padding-top: 104px; }
+  /* ---------- 4 offers (blue band, pan) ---------- */
+  .offers { background: var(--blue); display: flex; align-items: center; height: 100%; }
+  .rail { gap: clamp(28px, 4vw, 64px); padding-left: var(--gutter-l); padding-right: 12vw; align-items: stretch; }
+  .rail__lead { flex: 0 0 min(30rem, 84vw); align-self: center; }
+  .rail__lead h2 { font-size: clamp(2.4rem, 1.5rem + 3vw, 4.4rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+  .rail__lead p { margin-top: 18px; font-size: 19px; max-width: 30ch; }
+  .offer { flex: 0 0 min(24rem, 78vw); border-left: 1px solid rgba(255,255,255,.32); padding: 8px 0 8px clamp(20px, 2.4vw, 32px); align-self: center; }
+  .offer h3 { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+  .offer p { margin-top: 14px; font-size: 17px; color: rgba(255,255,255,.86); }
 
-  header.wrap {
-    padding-block: 11px;
-    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px;
-  }
-  /* The wordmark SVG is drawn at 60px type: in em here so it scales with the
-     font-size. Its text baseline (y 46 of 74) sits on the line's baseline and
-     the negative margin keeps the pen line below it out of the layout. */
-  .wordmark { font-size: 20px; line-height: 26px; text-decoration: none; }
-  .wordmark img {
-    display: inline; width: auto; height: calc(74em / 60);
-    margin: 0 0 calc(-28em / 60) calc(-2em / 60); vertical-align: baseline;
-  }
-  header a { font-size: 15px; line-height: 22px; }
-  /* The header's two links, kept together: beside the wordmark when there
-     is room, on the line under it when not. */
-  header .links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 20px; }
+  /* ---------- 5 Second Pass ---------- */
+  .sp { padding-block: clamp(96px, 14vh, 170px); }
+  .sp__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .sp h2 { font-size: clamp(2.2rem, 1.4rem + 2.6vw, 3.8rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+  .sp__site { display: inline-block; margin-top: 10px; color: var(--pen); font-size: 15px; text-underline-offset: 4px; }
+  .sp__body { margin-top: 24px; font-size: 18px; max-width: 48ch; }
+  .sp__lesson { margin-top: 26px; font-size: clamp(1.25rem, 1rem + .9vw, 1.7rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; max-width: 26ch; }
+  .cuts { margin-top: 30px; display: grid; }
+  .cut { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px; padding-block: 14px; border-top: 1px solid var(--rule); }
+  .cut:last-child { border-bottom: 1px solid var(--rule); }
+  .cut__head { font-size: 13px; font-weight: 600; color: var(--pencil); border-top: 0; padding-bottom: 6px; }
+  .cut .what { font-weight: 500; }
+  .cut .why { color: var(--pencil); }
+  .sp__phones { position: relative; display: flex; gap: 6%; justify-content: center; align-items: flex-start; }
+  .sp__phones figure { margin: 0; width: 44%; }
+  .sp__phones figure:nth-child(2) { margin-top: 14%; }
+  .sp__phones figcaption { margin-top: 10px; font-size: 13px; color: var(--pencil); }
+  @media (max-width: 860px) { .sp__grid { grid-template-columns: 1fr; } .cut { grid-template-columns: 1fr; gap: 2px; } .cut__head { display: none; } }
 
-  /* hero */
-  .hero { padding-top: 48px; padding-bottom: 72px; }
-  .hero h1 { margin: 0; font-size: clamp(30px, 9.25vw, 36px); line-height: 1.1667; font-weight: 500; letter-spacing: -0.015em; }
-  .hero h1 > span { display: block; }
-  .hero h1 img {
-    display: inline-block; width: 0.9444em; height: 0.9444em; margin: 0 2px;
-    vertical-align: -0.1667em; object-fit: cover; border-radius: 4px;
-  }
-  .hero .lead { margin: 16px 0 0; font-size: 19px; line-height: 28px; }
-  .hero .where { margin: 12px 0 0; font-size: 19px; line-height: 28px; }
-  .hero .cta { margin-top: 32px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hero .cta p { margin: 0; font-size: 17px; line-height: 26px; }
+  /* ---------- 6 how I work, about ---------- */
+  .how { padding-block: clamp(96px, 14vh, 170px) clamp(48px, 8vh, 96px); }
+  .how__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: clamp(28px, 6vw, 96px); }
+  .how h2, .about h2 { font-size: clamp(2rem, 1.4rem + 2vw, 3.2rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; }
+  .how__title { position: sticky; top: 110px; align-self: start; }
+  .how__list { display: grid; }
+  .how__item { padding-block: 26px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 20px; }
+  .how__item h3 { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+  .how__item p { font-size: 17px; color: #3B3F46; max-width: 50ch; }
+  .about { padding-block: clamp(48px, 8vh, 96px) clamp(110px, 16vh, 190px); }
+  .about__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: clamp(28px, 6vw, 96px); align-items: center; }
+  .about__photo { position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 4 / 5; max-width: 100%; }
+  .about__photo img { position: absolute; left: 0; width: 100%; height: 118%; top: -9%; object-fit: cover; max-width: none; }
+  .about__text { display: grid; gap: 18px; font-size: 19px; max-width: 48ch; }
+  .about__text p + p { color: #3B3F46; }
+  @media (max-width: 860px) { .how__grid, .about__grid { grid-template-columns: 1fr; } .how__title { position: static; } .how__item { grid-template-columns: 1fr; gap: 6px; } .about__photo { max-width: 300px; } }
 
-  /* the two framed phones */
-  .art { margin-top: 20px; }
-  .phones { display: flex; align-items: flex-start; padding: 10px 16px 24px; filter: drop-shadow(0 16px 20px rgba(22, 24, 28, 0.2)); }
-  .phone { position: relative; flex: none; width: 120px; transform: rotate(4deg); }
-  .phone + .phone { margin-left: -16px; margin-top: 18px; transform: rotate(-4deg); }
-  .side { position: absolute; width: 2px; background: var(--frame-button); }
-  .side.l { left: -2px; border-radius: 1px 0 0 1px; }
-  .side.r { right: -2px; border-radius: 0 1px 1px 0; }
-  .side.s1 { top: 54px; height: 13px; }
-  .side.s2 { top: 78px; height: 24px; }
-  .side.s3 { top: 107px; height: 24px; }
-  .side.r  { top: 87px; height: 36px; }
-  .bezel { padding: 5px; background: var(--frame); border: 1px solid var(--frame-edge); border-radius: 22px; }
-  .screen { position: relative; overflow: hidden; border-radius: 17px; background: #000000; }
-  .screen .strip { width: 100%; aspect-ratio: 444 / 62; background: var(--strip); }
-  .screen img { width: 100%; height: auto; object-fit: cover; object-position: top; }
-  .screen img.cl { aspect-ratio: 444 / 900; }
-  .screen img.sp { aspect-ratio: 1179 / 2556; }
-  .island { position: absolute; top: 4px; left: 50%; width: 35px; height: 11px; margin-left: -17.5px; border-radius: 6px; background: var(--island); }
-  .phone-labels { display: flex; padding: 0 16px; }
-  .phone-labels p { margin: 0; width: 120px; text-align: center; font-size: 14px; line-height: 20px; }
-  .phone-labels p + p { margin-left: -16px; }
+  /* ---------- 7 close ---------- */
+  .close { background: var(--navy); padding-block: clamp(110px, 16vh, 190px) 48px; }
+  .close__line { font-size: clamp(2rem, 1.2rem + 3.2vw, 4.4rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.04; max-width: 18ch; }
+  .close__grid { margin-top: clamp(56px, 9vh, 110px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .close h3 { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; display: inline-block; padding-bottom: 14px; }
+  .close__text { display: grid; gap: 16px; margin-top: 18px; font-size: 17px; max-width: 46ch; }
+  .close__text p { color: rgba(255,255,255,.84); }
+  form { display: grid; gap: 16px; }
+  label { display: grid; gap: 6px; font-size: 15px; font-weight: 500; }
+  input, textarea { width: 100%; min-height: 46px; padding: 11px 13px; border-radius: 3px; border: 1px solid rgba(255,255,255,.28);
+    background: rgba(255,255,255,.06); color: var(--white); font: 400 16px/1.4 var(--font); }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus, textarea:focus { outline: 2px solid var(--pen-on-navy); outline-offset: 1px; border-color: transparent; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form__note { min-height: 1.4em; font-size: 14px; color: rgba(255,255,255,.75); }
+  .foot { margin-top: clamp(80px, 12vh, 140px); padding-top: 22px; border-top: 1px solid rgba(255,255,255,.16);
+    display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; font-size: 14px; color: rgba(255,255,255,.72); }
+  .foot svg { height: 20px; width: auto; color: var(--white); }
+  .foot svg { --wm-line: #8197F2; }
+  .foot span.sel { user-select: all; }
+  @media (max-width: 860px) { .close__grid, .pair { grid-template-columns: 1fr; } }
 
-  /* sections */
-  .rule { border-top: 2px solid var(--ink); padding-top: 20px; }
-  h2 { margin: 0; font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -0.01em; }
-  .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
-  .head a { font-size: 15px; line-height: 22px; }
-  .desc { margin: 8px 0 0; font-size: 17px; line-height: 26px; }
-  .point { margin: 16px 0 0; font-size: 17px; line-height: 26px; font-weight: 600; color: var(--ink); }
-
-  /* What I offer: a full-width Ballpoint band, each offer a white panel. */
-  .help { background: var(--ballpoint); color: #FFFFFF; }
-  .help .wrap { padding-top: 64px; padding-bottom: 72px; }
-  .help .rule { border-top-color: #FFFFFF; }
-  .help .desc { color: var(--ballpoint-soft); }
-  .help ul { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-  .help li { padding: 16px 18px; border-radius: 4px; background: #FFFFFF; color: var(--ink); font-size: 17px; line-height: 26px; }
-  .help li strong { font-weight: 600; }
-  @media (hover: hover) {
-    .help li:hover { box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12); }
-  }
-
-  .chantierlog { padding-top: 72px; }
-
-  /* the tables: rows with labels on the phone, a real table on desktop */
-  .table-desktop { display: none; }
-  .rows-cl { margin-top: 40px; }
-  .rows-sp { margin-top: 12px; }
-  .cut-title { margin: 40px 0 0; font-size: 18px; line-height: 26px; font-weight: 600; }
-  .row { border-top: 1px solid var(--rule); padding: 18px 0 24px; }
-  .row > p { margin: 0; font-size: 17px; line-height: 26px; }
-  .row dl { margin: 12px 0 0; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline; }
-  .rows-sp .row dl { margin: 0; }
-  .row dt { font-size: 18px; line-height: 26px; font-weight: 600; }
-  .row dd { margin: 0; font-size: 22px; line-height: 30px; letter-spacing: -0.01em; }
-  .then { font-weight: 400; color: var(--pencil); }
-  .now { font-weight: 500; color: var(--ink); }
-
-  /* The pen lines crossing out each Before and What I cut, one per line of
-     text. The script lays them; until then the cell reads as plain text. */
-  .then { position: relative; }
-  .pen-line { position: absolute; overflow: visible; pointer-events: none; }
-  .pen-line path { fill: none; stroke: var(--ballpoint); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1 2; }
-
-  /* grey bands of screenshots */
-  .band { margin-top: 96px; background: var(--bench); }
-  .band > .wrap { padding-top: 32px; padding-bottom: 40px; }
-  figure { margin: 0; }
-  figcaption { margin-top: 10px; font-size: 14px; line-height: 20px; color: var(--pencil); }
-  .band-cl .grid, .band-cl .col { display: flex; flex-direction: column; gap: 28px; }
-  .band-cl .crew { width: calc((100% - 16px) / 2); }
-  .band-cl .crew img { width: 100%; height: auto; aspect-ratio: 1179 / 2556; object-fit: cover; border: 1px solid var(--rule); border-radius: 14px; }
-  .band-cl .email img { width: 100%; height: auto; aspect-ratio: 1896 / 1065; object-fit: cover; object-position: top left; border: 1px solid var(--rule); border-radius: 4px; }
-  .band-cl video { width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 4px; background: var(--rule); }
-  .video-caption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
-  .video-caption button {
-    min-height: 44px; padding: 0 16px; border: 1px solid var(--ink); border-radius: 3px;
-    background: transparent; color: var(--ink); font-family: inherit;
-    font-size: 15px; line-height: 22px; font-weight: 600; cursor: pointer;
-  }
-  .band-sp .grid { display: flex; gap: 16px; align-items: flex-start; }
-  .band-sp figure { flex: 1 1 0; min-width: 0; }
-  .band-sp img { width: 100%; height: auto; aspect-ratio: 1179 / 2556; object-fit: cover; border-radius: 14% / 6.5%; }
-
-  .second-pass { padding-top: 72px; }
-
-  .how { padding-top: 72px; padding-bottom: 72px; }
-  .how .three { margin-top: 20px; display: flex; flex-direction: column; gap: 28px; }
-  .how h3 { margin: 0; font-size: 18px; line-height: 26px; font-weight: 600; }
-  .how p { margin: 6px 0 0; font-size: 17px; line-height: 26px; }
-
-  .about { padding-bottom: 72px; }
-  .about .desc + .desc { margin-top: 16px; }
-
-  .dark { background: var(--ink); color: #FFFFFF; }
-  .dark .wrap { padding-top: 64px; padding-bottom: 72px; }
-  .dark .rule { border-top-color: #FFFFFF; }
-  .dark .actions { margin-top: 28px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
-  .dark .actions .hit { color: #FFFFFF; font-size: 16px; line-height: 24px; padding-block: 10px; margin-block: -10px; }
-
-  /* the walk-through and its form, in the close */
-  .dark h3 { margin: 28px 0 0; font-size: 17px; line-height: 26px; font-weight: 600; }
-  .dark .body { margin: 8px 0 0; max-width: 640px; font-size: 17px; line-height: 26px; }
-  .dark .body + .body { margin-top: 16px; }
-  .dark form { margin-top: 28px; }
-  .fields { display: flex; flex-direction: column; gap: 20px; max-width: 640px; }
-  .field label { display: block; margin-bottom: 8px; font-size: 16px; line-height: 24px; font-weight: 500; }
-  .field input, .field textarea {
-    display: block; width: 100%; min-height: 48px; margin: 0; padding: 12px 14px;
-    border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); color: var(--ink);
-    font-family: inherit; font-size: 17px; line-height: 24px;
-  }
-  .field textarea { resize: vertical; }
-  .dark button.btn { border: 0; font-family: inherit; cursor: pointer; }
-
-  /* The footer: one link to the Blog, styled like the blog pages' footer
-     (_layouts/blog.html). */
-  footer { background: var(--paper); }
-  footer.wrap { padding-top: 32px; padding-bottom: 48px; }
-  footer .line { margin: 0; border-top: 1px solid var(--rule); padding-top: 24px; font-size: 15px; line-height: 22px; }
-
-  /* ---------- desktop board ---------- */
-
-  @media (min-width: 960px) {
-    .wrap { max-width: 1200px; padding: 0 48px; }
-    footer.wrap { padding-bottom: 64px; }
-
-    html { scroll-padding-top: 120px; }
-    header.wrap { padding-block: 28px; gap: 12px 32px; }
-    .wordmark { font-size: 22px; line-height: 28px; }
-    header a { font-size: 17px; line-height: 24px; }
-    header .hit { padding-block: 10px; margin-block: -10px; }
-    header .links { gap: 12px 32px; }
-
-    .hero {
-      padding-top: 96px; padding-bottom: 120px;
-      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px 56px; align-items: start;
-    }
-    .hero h1 { font-size: clamp(36px, 3.75vw, 54px); line-height: 1.15; }
-    .hero h1 > span + span { text-wrap: balance; }
-    .hero h1 img { width: 1em; height: 1em; vertical-align: -0.1852em; }
-    .hero .lead { margin-top: 24px; max-width: 600px; font-size: 22px; line-height: 32px; }
-    .hero .where { margin-top: 16px; max-width: 600px; font-size: 22px; line-height: 32px; }
-    .hero .cta { margin-top: 48px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
-    .hero .cta p { max-width: 400px; font-size: 18px; line-height: 28px; }
-
-    .art { margin-top: 0; }
-    .phones { padding: 16px 28px 40px; filter: drop-shadow(0 28px 32px rgba(22, 24, 28, 0.2)); }
-    .phone { width: 204px; }
-    .phone + .phone { margin-left: -28px; margin-top: 32px; }
-    .side { width: 3px; }
-    .side.l { left: -3px; border-radius: 2px 0 0 2px; }
-    .side.r { right: -3px; border-radius: 0 2px 2px 0; }
-    .side.s1 { top: 92px; height: 22px; }
-    .side.s2 { top: 132px; height: 40px; }
-    .side.s3 { top: 182px; height: 40px; }
-    .side.r  { top: 148px; height: 62px; }
-    .bezel { padding: 8px; border-radius: 37px; }
-    .screen { border-radius: 28px; }
-    .island { top: 6px; width: 60px; height: 18px; margin-left: -30px; border-radius: 9px; }
-    .phone-labels { padding: 0 28px; }
-    .phone-labels p { width: 204px; font-size: 15px; line-height: 22px; }
-    .phone-labels p + p { margin-left: -28px; }
-
-    .rule { padding-top: 24px; }
-    h2 { font-size: 36px; line-height: 44px; }
-    .head { gap: 8px 32px; }
-    .head a { font-size: 18px; line-height: 28px; }
-    .head .hit { padding-block: 8px; margin-block: -8px; }
-    .desc { max-width: 640px; font-size: 18px; line-height: 28px; }
-    .point { margin-top: 24px; max-width: 640px; font-size: 18px; line-height: 28px; }
-
-    .help .wrap { padding-top: 96px; padding-bottom: 104px; }
-    .help ul { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    .help li { padding: 20px 24px; font-size: 18px; line-height: 28px; }
-
-    .chantierlog { padding-top: 120px; }
-
-    .rows, .cut-title { display: none; }
-    .table-desktop { display: block; margin-top: 64px; overflow-x: auto; }
-    table { width: 100%; min-width: 720px; border-collapse: collapse; }
-    thead th, thead td { padding: 0 32px 16px 0; text-align: left; font-size: 20px; line-height: 28px; font-weight: 600; }
-    thead th:last-child { padding-right: 0; }
-    tbody th, tbody td { border-top: 1px solid var(--rule); padding: 24px 32px 32px 0; text-align: left; vertical-align: baseline; }
-    tbody td:last-child { padding-right: 0; }
-    tbody td, .cut tbody th { font-size: 28px; line-height: 36px; letter-spacing: -0.01em; }
-    .before-after thead td { width: 22%; padding-right: 24px; }
-    .before-after thead th:first-of-type { width: 32%; }
-    .before-after tbody th { padding-right: 24px; font-size: 18px; line-height: 28px; font-weight: 400; color: var(--pencil); }
-    .cut thead th:first-child { width: 54%; }
-
-    .band { margin-top: 160px; }
-    .band > .wrap { padding-top: 56px; padding-bottom: 64px; }
-    figcaption { margin-top: 14px; font-size: 15px; line-height: 22px; }
-    .band-cl .grid { display: grid; grid-template-columns: minmax(0, 322px) minmax(0, 1fr); gap: 32px; align-items: start; }
-    .band-cl .col { gap: 24px; }
-    .band-cl .crew { width: auto; }
-    .band-cl .crew img { border-radius: 16px; }
-    .video-caption { gap: 8px 24px; }
-    .video-caption button { padding: 0 18px; }
-    .band-sp .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 322px)); justify-content: center; gap: 32px; }
-
-    .second-pass { padding-top: 120px; }
-
-    .how { padding-top: 120px; padding-bottom: 120px; }
-    .how .three { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
-    .how h3 { font-size: 20px; line-height: 28px; }
-    .how p { margin-top: 8px; font-size: 18px; line-height: 28px; }
-
-    .about { padding-bottom: 120px; }
-    .about .desc + .desc { margin-top: 24px; }
-
-    .dark .wrap { padding-top: 96px; padding-bottom: 104px; }
-    .dark .actions { margin-top: 40px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
-    .dark .actions .hit { font-size: 17px; line-height: 24px; }
-    .dark h3 { margin-top: 40px; font-size: 18px; line-height: 28px; }
-    .dark .body { font-size: 18px; line-height: 28px; }
-    .dark .body + .body { margin-top: 24px; }
-    .dark form { margin-top: 40px; }
-    .fields { gap: 24px; }
-    .field label { font-size: 17px; }
-  }
-
-  /* ---------- movement: once, and only when the reader allows it ---------- */
-
-  @keyframes rise { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
-  @keyframes pen-draw {
-    from { stroke-dashoffset: 1; visibility: hidden; }
-    to { stroke-dashoffset: 0; visibility: visible; }
-  }
-  @keyframes ink-land { from { color: var(--pencil); } to { color: var(--ink); } }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .motion .art { animation: rise 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-
-    /* data-strike: pending until it first comes into view, .go while it
-       plays, .done after (and straight away under Reduce Motion). */
-    .motion [data-strike]:not(.done) .pen-line path { visibility: hidden; }
-    .motion [data-strike]:not(.done) .now { color: var(--pencil); }
-    .motion [data-strike].go .pen-line path { animation: pen-draw 500ms cubic-bezier(0.3, 0.6, 0.2, 1) both; }
-    .motion [data-strike].go .now { animation: ink-land 500ms ease-out both; }
-
-    .btn .lbl path { transition: stroke-dashoffset 400ms cubic-bezier(0.3, 0.6, 0.2, 1), visibility 400ms; }
-    .btn:hover .lbl path, .btn:focus-visible .lbl path { transition: stroke-dashoffset 400ms cubic-bezier(0.3, 0.6, 0.2, 1); }
-
-    .help li { transition: transform 160ms ease, box-shadow 160ms ease; }
-  }
-  @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-    .help li:hover { transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) {
+    #hero { height: auto !important; }
+    #hero .hero { position: relative; height: 100svh; }
+    .strike { transition: none; }
+    /* ChantierLog and the offers don't pin either: each act is only as tall
+       as its stage, so the (still sticky) stage has no travel and scrolls
+       past. ChantierLog shows its settled screen: every cued line and figure
+       visible, whatever the act's progress says. */
+    #chantierlog, [data-sc-act="pan"] { height: auto !important; }
+    #chantierlog [data-sc-cue] { opacity: 1 !important; pointer-events: auto !important; }
+    /* The offers, laid out instead of travelled: the lead, then the five
+       panels, one column on phones, a wrapping grid on wide screens, all on
+       the blue band. Replaces the engine's sideways scroll region. */
+    [data-sc-act="pan"] [data-sc-stage] { height: auto; overflow: visible; scroll-snap-type: none; }
+    .offers { height: auto; display: block; padding-block: clamp(96px, 14vh, 170px); }
+    .rail { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
+      padding-right: var(--gutter-r); align-items: start; }
+    .rail__lead { grid-column: 1 / -1; }
+    .offer { align-self: stretch; }
   }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"BaileyDigital","url":"https://baileydigital.io/","logo":"https://baileydigital.io/logo.png"}
 </script>
 </head>
-<body id="top">
+<body>
 
-<div class="top">
-<header class="wrap">
-  <a class="wordmark" href="#top"><img src="img/wordmark-navy.svg" width="356" height="74" alt="BaileyDigital"></a>
-  <nav class="links" aria-label="Site">
-    <a class="hit" href="/blog/">Blog</a>
-    <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wm" viewBox="0 0 356 74">
+    <path fill="currentColor" d="M7.73 46Q7.29 46 7.02 45.73Q6.75 45.46 6.75 45.05V2.62Q6.75 2.09 7.04 1.79Q7.33 1.48 7.83 1.48H23.27Q31.78 1.48 36.32 4.44Q40.87 7.39 40.87 13.11Q40.87 16.52 39.07 18.88Q37.27 21.24 33.01 22.95Q32.84 23.01 32.84 23.18Q32.84 23.36 33.01 23.42Q37.59 24.8 39.77 27.34Q41.95 29.88 41.95 34.01Q41.95 40.09 37.37 43.04Q32.79 46 23.88 46H7.73ZM23.59 39.89Q28.19 39.89 30.46 38.17Q32.72 36.46 32.72 33.33Q32.72 31.04 31.61 29.56Q30.49 28.07 28.56 27.35Q26.62 26.62 24.12 26.62H16.68Q15.62 26.62 15.62 27.57V38.88Q15.62 39.89 16.37 39.89ZM24.12 20.38Q25.65 20.38 27.05 20.04Q28.46 19.7 29.58 18.94Q30.71 18.19 31.38 17.01Q32.05 15.83 32.05 14.12Q32.05 10.88 29.67 9.24Q27.3 7.59 23.46 7.59H16.63Q15.62 7.59 15.62 8.48V19.37Q15.62 20.38 16.37 20.38ZM65.01 42.69Q63.02 44.51 60.6 45.56Q58.18 46.6 55.13 46.6Q50.52 46.6 47.89 44.16Q45.26 41.72 45.26 37.87Q45.26 34.54 47.25 32.11Q49.24 29.68 53.01 28.29Q56.78 26.89 62.11 26.71L65.1 26.47Q65.45 26.45 65.75 26.27Q66.05 26.1 66.05 25.61V24.22Q66.05 21.6 64.5 20.1Q62.95 18.61 60.15 18.61Q58.08 18.61 56.26 19.55Q54.44 20.49 53.11 22.62Q52.89 22.99 52.69 23.1Q52.49 23.21 51.93 23.09L46.88 21.82Q46.59 21.7 46.46 21.46Q46.33 21.22 46.65 20.48Q48.26 17.08 51.8 15.34Q55.34 13.6 60.51 13.6Q65.14 13.6 68 14.85Q70.86 16.09 72.19 18.37Q73.52 20.64 73.52 23.71V44.83Q73.52 45.49 73.3 45.75Q73.08 46 72.48 46H67.38Q66.84 46 66.59 45.59Q66.33 45.19 66.27 44.58L66.18 42.74Q66.03 41.76 65.01 42.69ZM66.05 31.46Q66.05 30.43 65.18 30.48L62.71 30.67Q60.75 30.77 58.98 31.21Q57.21 31.65 55.86 32.42Q54.51 33.19 53.71 34.3Q52.91 35.41 52.91 36.88Q52.91 38.95 54.38 40.15Q55.84 41.35 58.35 41.35Q60 41.35 61.39 40.79Q62.78 40.24 63.78 39.42Q64.82 38.55 65.44 37.62Q66.05 36.69 66.05 35.74V31.46ZM87.55 44.71Q87.55 45.43 87.23 45.72Q86.91 46 86.12 46H80.92Q80.23 46 79.99 45.75Q79.75 45.49 79.75 44.89V15.24Q79.75 14.2 80.63 14.2H86.71Q87.55 14.2 87.55 15.14ZM87.68 8.32Q87.68 9.72 86.25 9.72H80.79Q80.1 9.72 79.86 9.4Q79.62 9.07 79.62 8.48V2.6Q79.62 1.48 80.58 1.48H86.76Q87.68 1.48 87.68 2.53ZM101.75 44.71Q101.75 45.43 101.42 45.72Q101.1 46 100.32 46H95.08Q93.88 46 93.88 44.89L94.05 2.52Q94.05 1.48 94.92 1.48H100.9Q101.75 1.48 101.75 2.45ZM114.59 32.55Q114.59 35.03 115.76 36.98Q116.92 38.92 118.91 40.04Q120.9 41.15 123.35 41.15Q125.8 41.15 127.8 40.11Q129.8 39.08 131.62 36.82Q131.83 36.55 132.02 36.52Q132.2 36.49 132.62 36.68L136.29 38.32Q137.06 38.66 136.45 39.39Q134.63 42.02 132.59 43.61Q130.54 45.2 128.05 45.9Q125.56 46.6 122.43 46.6Q117.84 46.6 114.25 44.56Q110.66 42.52 108.6 38.88Q106.54 35.24 106.54 30.51Q106.54 25.33 108.66 21.54Q110.79 17.76 114.38 15.68Q117.96 13.6 122.3 13.6Q126.83 13.6 130.23 15.57Q133.62 17.55 135.56 21.25Q137.49 24.96 137.49 30.23Q137.49 30.83 137.38 31.2Q137.27 31.57 136.54 31.6H115.26Q114.94 31.6 114.77 31.86Q114.59 32.11 114.59 32.55ZM128.82 27.18Q129.45 27.18 129.64 27.02Q129.84 26.86 129.84 26.34Q129.84 24.46 129 22.67Q128.16 20.88 126.55 19.71Q124.94 18.55 122.58 18.55Q120.17 18.55 118.38 19.71Q116.58 20.87 115.65 22.83Q114.72 24.79 114.72 27.15ZM143.22 55.9Q141.41 55.9 140.53 55.74Q139.65 55.58 139.65 54.89V51.06Q139.65 50.67 139.99 50.4Q140.34 50.13 141.35 50.13H145.32Q146.53 50.13 147.51 49.49Q148.5 48.85 149.13 47.88Q149.75 46.92 149.98 45.87Q150.2 44.81 149.85 43.98L138.35 15.49Q138.16 14.99 138.38 14.6Q138.61 14.2 139.2 14.2H145.45Q145.89 14.2 146.2 14.44Q146.52 14.68 146.65 15.09L154.08 34.84Q154.29 35.38 154.59 35.38Q154.89 35.39 155.13 34.73L162.49 15.06Q162.68 14.68 162.95 14.44Q163.22 14.2 163.63 14.2H167.99Q168.53 14.2 168.75 14.58Q168.97 14.96 168.75 15.42L156.16 46.98Q155.01 49.76 153.79 51.5Q152.56 53.25 151.05 54.2Q149.55 55.16 147.64 55.53Q145.74 55.9 143.22 55.9ZM174.94 46Q173.73 46 173.73 44.73V2.59Q173.73 1.98 174 1.73Q174.26 1.48 174.9 1.48Q176.11 1.48 177.71 1.48Q179.3 1.48 181 1.49Q182.7 1.51 184.24 1.51Q185.79 1.51 186.9 1.54Q195.09 1.7 200.28 4.37Q205.46 7.04 207.93 11.88Q210.39 16.72 210.39 23.5Q210.39 30.57 207.77 35.63Q205.16 40.69 199.85 43.34Q194.55 46 186.5 46ZM183.36 39.65H184.91Q190.42 39.65 194 38.09Q197.58 36.53 199.34 32.99Q201.09 29.46 201.09 23.64Q201.09 17.84 199.41 14.39Q197.72 10.95 194.25 9.4Q190.77 7.86 185.4 7.86H183.2Q182.6 7.86 182.6 8.7V38.91Q182.6 39.65 183.36 39.65ZM223.81 44.71Q223.81 45.43 223.49 45.72Q223.17 46 222.38 46H217.18Q216.49 46 216.25 45.75Q216.01 45.49 216.01 44.89V15.24Q216.01 14.2 216.89 14.2H222.97Q223.81 14.2 223.81 15.14ZM223.94 8.32Q223.94 9.72 222.51 9.72H217.05Q216.36 9.72 216.12 9.4Q215.88 9.07 215.88 8.48V2.6Q215.88 1.48 216.84 1.48H223.02Q223.94 1.48 223.94 2.53ZM261.15 13.12Q261.71 13.12 262.01 13.38Q262.32 13.65 262.32 14.3V17.68Q262.32 18.44 261.99 18.77Q261.66 19.09 261 18.98Q260.16 18.91 259.42 18.92Q258.69 18.93 258.07 19.11Q256.53 19.45 256.87 20.49Q257.07 21.07 257.33 21.83Q257.59 22.58 257.59 23.69Q257.59 26.37 256.06 28.59Q254.53 30.81 251.42 32.14Q248.31 33.46 243.61 33.46Q241 33.46 239.46 33.76Q237.91 34.06 237.25 34.57Q236.59 35.07 236.59 35.66Q236.59 36.5 237.63 36.85Q238.67 37.19 240.93 37.34L249.21 37.83Q255.06 38.17 257.77 40.46Q260.48 42.76 260.48 46.4Q260.48 50.93 256.26 53.72Q252.04 56.5 243.98 56.5Q235.66 56.5 231.42 54.48Q227.18 52.46 227.18 48.5Q227.18 46.41 228.74 44.97Q230.29 43.54 232.87 42.48Q233.63 42.19 232.87 41.82Q231.47 41.15 230.56 40.16Q229.65 39.17 229.65 37.71Q229.65 36.61 230.36 35.67Q231.07 34.73 232.29 33.93Q233.52 33.13 235.08 32.55Q235.41 32.43 235.49 32.24Q235.56 32.05 235.16 31.83Q232.43 30.52 231 28.5Q229.58 26.48 229.58 23.73Q229.58 19.2 233.33 16.46Q237.08 13.72 244.2 13.72Q247.44 13.72 249.76 14.44Q252.09 15.17 253.59 16.42Q253.99 16.73 254.4 16.71Q254.81 16.69 255.11 16.35Q255.84 15.49 256.88 14.76Q257.91 14.04 259.06 13.58Q260.2 13.12 261.15 13.12ZM243.57 29.39Q247.11 29.39 248.77 27.82Q250.43 26.25 250.43 23.77Q250.43 21.1 248.76 19.48Q247.09 17.86 243.57 17.86Q240.27 17.86 238.45 19.48Q236.63 21.1 236.63 23.77Q236.63 26.29 238.44 27.84Q240.25 29.39 243.57 29.39ZM238.83 43.47Q237.7 43.41 236.52 43.92Q235.34 44.42 234.53 45.35Q233.72 46.28 233.72 47.52Q233.72 49.07 234.84 50.19Q235.95 51.32 238.34 51.91Q240.72 52.5 244.55 52.5Q248.96 52.5 251.25 51.26Q253.54 50.02 253.54 47.68Q253.54 46.13 252.31 45.12Q251.08 44.1 248.34 43.96ZM274.09 44.71Q274.09 45.43 273.77 45.72Q273.45 46 272.66 46H267.46Q266.77 46 266.53 45.75Q266.29 45.49 266.29 44.89V15.24Q266.29 14.2 267.17 14.2H273.25Q274.09 14.2 274.09 15.14ZM274.22 8.32Q274.22 9.72 272.79 9.72H267.33Q266.64 9.72 266.4 9.4Q266.16 9.07 266.16 8.48V2.6Q266.16 1.48 267.12 1.48H273.3Q274.22 1.48 274.22 2.53ZM292.11 19.68Q291.49 19.68 291.49 20.3V36.33Q291.49 38.65 292.47 39.56Q293.44 40.46 295.48 40.46H299Q299.38 40.46 299.6 40.7Q299.82 40.94 299.82 41.32L299.79 44.46Q299.79 45.4 298.65 45.66Q297.75 45.79 296.56 45.86Q295.37 45.94 294.19 45.97Q293.01 46 292.05 46Q288.04 46 285.87 44.11Q283.69 42.23 283.69 38.39V20.47Q283.69 19.68 283 19.68H278.94Q277.97 19.68 277.97 18.78V15Q277.97 14.2 278.87 14.2H283.33Q283.86 14.2 283.89 13.61L284.67 4.34Q284.74 3.4 285.49 3.4H290.81Q291.69 3.4 291.69 4.43V13.61Q291.69 14.17 292.25 14.17H299Q299.9 14.17 299.9 14.96V18.78Q299.9 19.68 298.9 19.68ZM321.81 42.69Q319.82 44.51 317.4 45.56Q314.98 46.6 311.93 46.6Q307.32 46.6 304.69 44.16Q302.06 41.72 302.06 37.87Q302.06 34.54 304.05 32.11Q306.04 29.68 309.81 28.29Q313.58 26.89 318.91 26.71L321.9 26.47Q322.25 26.45 322.55 26.27Q322.85 26.1 322.85 25.61V24.22Q322.85 21.6 321.3 20.1Q319.75 18.61 316.95 18.61Q314.88 18.61 313.06 19.55Q311.24 20.49 309.91 22.62Q309.69 22.99 309.49 23.1Q309.29 23.21 308.74 23.09L303.68 21.82Q303.39 21.7 303.26 21.46Q303.13 21.22 303.45 20.48Q305.06 17.08 308.6 15.34Q312.14 13.6 317.31 13.6Q321.94 13.6 324.8 14.85Q327.66 16.09 328.99 18.37Q330.32 20.64 330.32 23.71V44.83Q330.32 45.49 330.1 45.75Q329.88 46 329.28 46H324.18Q323.64 46 323.39 45.59Q323.13 45.19 323.07 44.58L322.98 42.74Q322.83 41.76 321.81 42.69ZM322.85 31.46Q322.85 30.43 321.98 30.48L319.51 30.67Q317.56 30.77 315.78 31.21Q314.01 31.65 312.66 32.42Q311.31 33.19 310.51 34.3Q309.71 35.41 309.71 36.88Q309.71 38.95 311.18 40.15Q312.64 41.35 315.15 41.35Q316.8 41.35 318.19 40.79Q319.58 40.24 320.58 39.42Q321.62 38.55 322.24 37.62Q322.85 36.69 322.85 35.74V31.46ZM344.39 44.71Q344.39 45.43 344.06 45.72Q343.74 46 342.96 46H337.72Q336.52 46 336.52 44.89L336.69 2.52Q336.69 1.48 337.56 1.48H343.54Q344.39 1.48 344.39 2.45Z"/>
+    <path class="line" stroke="var(--wm-line, #2A47B8)" transform="translate(0,58) scale(1.17,1)" d="M2 9 C 40 6.5, 95 11.5, 150 9 S 245 6.8, 298 4.5" fill="none" stroke-width="3.6" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+{%- assign h = site.data.home -%}
+{%- comment -%} Motion timing per slot: the scroll window of each phone message
+(its strike and its swap) and of each ChantierLog row (its strike, then its
+After line). These are the draft's values; the words are in _data/home.yml. {%- endcomment -%}
+{%- assign nt_windows = "0.06 0.18|0.2 0.32|0.34 0.46|0.48 0.6|0.62 0.74" | split: "|" -%}
+{%- assign row_strikes = "0.06 0.24|0.44 0.6" | split: "|" -%}
+{%- assign row_cues = "0.22|0.58" | split: "|" %}
+<header class="bar" id="bar">
+  <a href="#top" aria-label="{{ h.header.logo_label | escape }}"><svg class="bar__mark" viewBox="0 0 356 74" role="img" aria-label="{{ h.header.wordmark_label | escape }}"><use href="#wm"/></svg></a>
+  <nav aria-label="Main">
+    <a class="text" href="/blog/">{{ h.header.blog | escape }}</a>
+    <a class="btn" href="#walk-through">{{ h.header.cta | escape }}</a>
   </nav>
 </header>
-</div>
 
-<main>
+<main id="top">
 
-  <div class="top">
-  <section class="hero wrap" aria-label="Introduction">
-    <div>
-      <h1>
-        <span>I’m <img src="img/corey.jpg" width="108" height="108" alt=""> Corey Bailey.</span>
-        <span>Keep your team organized and your clients in the loop.</span>
-      </h1>
-      <p class="lead">For a crew in the field, that means knowing what got done today and who was on which job, and telling a client where things stand without a phone call. When that lives on paper and in texts, hours get billed wrong. I build simple tools that fix that.</p>
-      <p class="where soft">Eastern Townships, Quebec. Ten years in the trades, with UX design alongside.</p>
-      <div class="cta">
-        <a class="btn" href="#walk-through"><span class="lbl">Book a free walk-through<svg viewBox="0 0 300 14" aria-hidden="true"><path pathLength="1" d="M2 9 C 40 6.5, 95 11.5, 150 9 S 245 6.8, 298 4.5"/></svg></span></a>
+  <!-- 1 · RECOGNITION: the owner's phone at 7pm. Each message is crossed out and replaced by what handles it. -->
+  <section id="hero" data-sc-act="pin" data-sc-span="2.4" data-sc-drift="#16203F" data-bar="dark">
+    <div data-sc-stage class="hero on-dark">
+      <div class="hero__glow" id="glow" aria-hidden="true"></div>
+      <div class="hero__copy" id="heroCopy">
+        <p class="hero__name"><img src="/img/corey.webp" width="800" height="800" alt="">{{ h.hero.name | escape }}</p>
+        <h1>{{ h.hero.headline | escape }}</h1>
+        <p class="hero__sub muted">{{ h.hero.sub | escape }}</p>
+        <p class="hero__cta"><a class="btn btn--lg" href="#walk-through">{{ h.hero.cta | escape }}</a></p>
       </div>
-    </div>
-    <div class="art">
-      <div class="phones">
-        <div class="phone">
-          <span class="side l s1" aria-hidden="true"></span>
-          <span class="side l s2" aria-hidden="true"></span>
-          <span class="side l s3" aria-hidden="true"></span>
-          <span class="side r" aria-hidden="true"></span>
-          <div class="bezel">
-            <div class="screen">
-              <div class="strip" aria-hidden="true"></div>
-              <img class="cl" src="img/chantierlog-job-list.jpg" width="372" height="754" alt="ChantierLog job list on a phone, in French">
-              <span class="island" aria-hidden="true"></span>
+      <div class="lock" id="lock" aria-hidden="true">
+        <div class="lock__screen">
+          <p class="lock__time">{{ h.hero.lock_time | escape }}</p>
+          <p class="lock__date">{{ h.hero.lock_date | escape }}</p>
+          <div class="lock__list">
+{%- for m in h.hero.messages %}
+{%- assign win = nt_windows[forloop.index0] %}
+          <div class="nt" data-nt="{{ win }}">
+{%- if m.icon == "reminder" %}
+            <div class="nt__icon ic-rem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+{%- elsif m.icon == "call" %}
+            <div class="nt__icon ic-call"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></div>
+{%- else %}
+            <div class="nt__icon ic-msg"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.6 1.5 4.9 3.8 6.4L5 21l3.9-2.1c1 .3 2 .4 3.1.4 5.5 0 10-3.7 10-8.1S17.5 3 12 3z"/></svg></div>
+{%- endif %}
+            <div>
+              <div class="nt__top"><b>{{ m.sender | escape }}</b><span>{{ m.time | escape }}</span></div>
+              <div class="nt__msg">
+                <span class="nt__old" data-pen-host>{% include strike.html text=m.before act=win %}</span>
+                <span class="nt__new">{{ m.after | escape }}</span>
+              </div>
             </div>
           </div>
+{%- endfor %}
+          </div>
         </div>
-        <div class="phone">
-          <span class="side l s1" aria-hidden="true"></span>
-          <span class="side l s2" aria-hidden="true"></span>
-          <span class="side l s3" aria-hidden="true"></span>
-          <span class="side r" aria-hidden="true"></span>
-          <div class="bezel">
-            <div class="screen">
-              <img class="sp" src="img/secondpass-main-screen.jpg" width="372" height="806" alt="Second Pass main screen">
-              <span class="island" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · RECOGNITION: his sentence, line by line. First strike. -->
+  <section class="lost" data-sc-act="flow" data-sc-drift="#FFFFFF" data-bar="light">
+    <div class="wrap">
+      <div class="lost__lines" data-sc-in data-sc-stagger="140">
+{%- for line in h.lost %}
+        <p{% if forloop.last %} class="land"{% endif %}{% if line contains "~~" %} data-pen-host{% endif %}>{% include strike.html text=line %}</p>
+{%- endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · RELIEF (peak): the paper sheet crossed out under your scroll. -->
+  <section id="chantierlog" data-sc-act="pin" data-sc-span="3.3" data-sc-drift="#FFFFFF" data-bar="light">
+    <div data-sc-stage>
+      <div class="peak" style="height:100%">
+        <div class="peak__copy">
+          <h2>{{ h.chantierlog.heading | escape }}</h2>
+          <a class="peak__site" href="https://chantierlog.ca">{{ h.chantierlog.link | escape }}</a>
+          <div class="rows">
+{%- for row in h.chantierlog.rows %}
+{%- assign win = row_strikes[forloop.index0] %}
+            <div class="row">
+              <h3>{{ row.heading | escape }}</h3>
+              <p class="before" data-pen-host>{% include strike.html text=row.before act=win %}</p>
+              <p class="after" data-sc-cue="{{ row_cues[forloop.index0] }}">{{ row.after | escape }}</p>
             </div>
+{%- endfor %}
           </div>
         </div>
-      </div>
-      <div class="phone-labels soft">
-        <p>ChantierLog</p>
-        <p>Second Pass</p>
-      </div>
-    </div>
-  </section>
-  </div>
-
-  <section class="help" aria-labelledby="offer">
-    <div class="wrap">
-      <div class="rule">
-        <h2 id="offer">What I offer</h2>
-      </div>
-      <p class="desc">Tools built around how your business works, not a generic app you have to work around.</p>
-      <ul>
-        <li><strong>Your paper forms, as an app.</strong> Time sheets, daily reports and job checklists, turned into a simple app your crew fills in on their phone. Hours bill right, and the week doesn’t get pieced together from memory.</li>
-        <li><strong>Your tools talking to each other.</strong> I connect the software you already use, so information is entered once and goes where it needs to.</li>
-        <li><strong>The repeat work, done on its own.</strong> Invoices, reminders, follow-ups and client updates that go out by themselves, so clients know where things stand without calling to ask.</li>
-        <li><strong>The week at a glance.</strong> One place to see hours, jobs and what’s still outstanding, so the day is planned and nothing slips.</li>
-        <li><strong>Straight advice on AI.</strong> Where it would actually save you time, and where it wouldn’t. I’ve built AI features into my own app and cut them when they didn’t hold up, so you’ll get a straight answer.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="chantierlog" aria-labelledby="chantierlog">
-    <div class="wrap">
-      <div class="rule head">
-        <h2 id="chantierlog">ChantierLog</h2>
-        <a class="hit" href="https://chantierlog.ca">chantierlog.ca</a>
-      </div>
-      <p class="desc soft">A job-site reporting app. At the end of every day I filled in a paper sheet, pen in hand, and it was a real pain. So I built the app I wanted: easier for crew leads to fill in, and easier for the office to receive and file for billing. It was piloted at the landscaping and excavation company I work for.</p>
-
-      <div class="rows rows-cl" data-strike="chantierlog">
-        <div class="row">
-          <p class="soft">On the job site</p>
-          <dl>
-            <dt>Before</dt>
-            <dd class="then">A paper sheet at the end of the day, pen in hand.</dd>
-            <dt>After</dt>
-            <dd class="now">Crew leads file the day from their phones, offline where there’s no signal.</dd>
-          </dl>
-        </div>
-        <div class="row">
-          <p class="soft">Monday morning</p>
-          <dl>
-            <dt>Before</dt>
-            <dd class="then">Someone in the office chasing hours.</dd>
-            <dt>After</dt>
-            <dd class="now">The week lands in the office’s inbox on its own, and nobody has to chase anyone for it.</dd>
-          </dl>
-        </div>
-      </div>
-
-      <div class="table-desktop" data-strike="chantierlog">
-        <table class="before-after">
-          <thead>
-            <tr>
-              <td></td>
-              <th scope="col">Before</th>
-              <th scope="col">After</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">On the job site</th>
-              <td class="then">A paper sheet at the end of the day, pen in hand.</td>
-              <td class="now">Crew leads file the day from their phones, offline where there’s no signal.</td>
-            </tr>
-            <tr>
-              <th scope="row">Monday morning</th>
-              <td class="then">Someone in the office chasing hours.</td>
-              <td class="now">The week lands in the office’s inbox on its own, and nobody has to chase anyone for it.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="band band-cl">
-      <div class="wrap">
-        <div class="grid">
-          <figure class="crew">
-            <img src="img/chantierlog-crew-sheet.jpg" width="1179" height="2556" loading="lazy" alt="ChantierLog crew sheet for one job site, on a phone, in French">
-            <figcaption>The crew’s sheet for the day, on a phone.</figcaption>
+        <div class="peak__media">
+          <figure class="peak__phone" data-sc-cue="0.2" style="margin:0">
+            <div class="phone"><img src="/img/chantierlog-crew-sheet.webp" width="1179" height="2556" loading="lazy" alt="{{ h.chantierlog.phone_alt | escape }}"></div>
+            <figcaption>{{ h.chantierlog.phone_caption | escape }}</figcaption>
           </figure>
-          <div class="col">
-            <figure class="email">
-              <img src="img/chantierlog-weekly-email.jpg" width="1896" height="1065" loading="lazy" alt="Top of the ChantierLog weekly email in French: one job site with 54.5 hours for the week and the first crew rows">
-              <figcaption>The weekly email the office reads on Monday.</figcaption>
-            </figure>
-            <figure>
-              <video id="demo" src="video/chantierlog-demo.mp4" poster="video/chantierlog-demo-poster.jpg" width="1280" height="720"
-                     muted loop playsinline preload="metadata"
-                     aria-label="ChantierLog demo, in French: a crew lead fills in the day’s sheet on a phone and submits it, then the office sees it on the dashboard and in the weekly email."></video>
-              <figcaption class="video-caption"><span>A demo of the app.</span><button type="button" id="demo-toggle" hidden>Pause video</button></figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="second-pass" aria-labelledby="secondpass">
-    <div class="wrap">
-      <div class="rule head">
-        <h2 id="secondpass">Second Pass</h2>
-        <a class="hit" href="https://secondpass.app">secondpass.app</a>
-      </div>
-      <p class="desc soft">An iPhone app I designed and built. I’d been scrolling reels for far too long when a video came up saying, more or less, go do something with your life. It didn’t say anything groundbreaking, and that’s when I realized we already have this knowledge. We just need to be reminded of it. So I built an app that reminds you in your own words: you talk into it, and later it plays them back to you. It’s in testing with its first users.</p>
-      <p class="point">It’s where I learned to cut what doesn’t work, even after it’s built.</p>
-
-      <h3 class="cut-title">What I cut, and why</h3>
-      <div class="rows rows-sp" data-strike="secondpass">
-        <div class="row">
-          <dl>
-            <dt>Cut</dt>
-            <dd class="then">Two AI features I’d already built</dd>
-            <dt>Why</dt>
-            <dd class="now">They failed on the recordings that mattered most.</dd>
-          </dl>
-        </div>
-        <div class="row">
-          <dl>
-            <dt>Cut</dt>
-            <dd class="then">A feature for long recordings</dd>
-            <dt>Why</dt>
-            <dd class="now">I measured my own recordings. They were short, so it wasn’t needed.</dd>
-          </dl>
-        </div>
-        <div class="row">
-          <dl>
-            <dt>Cut</dt>
-            <dd class="then">Typing</dd>
-            <dt>Why</dt>
-            <dd class="now">I never used it.</dd>
-          </dl>
-        </div>
-      </div>
-
-      <div class="table-desktop" data-strike="secondpass">
-        <table class="cut">
-          <thead>
-            <tr>
-              <th scope="col">What I cut</th>
-              <th scope="col">Why</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" class="then">Two AI features I’d already built</th>
-              <td class="now">They failed on the recordings that mattered most.</td>
-            </tr>
-            <tr>
-              <th scope="row" class="then">A feature for long recordings</th>
-              <td class="now">I measured my own recordings. They were short, so it wasn’t needed.</td>
-            </tr>
-            <tr>
-              <th scope="row" class="then">Typing</th>
-              <td class="now">I never used it.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="band band-sp">
-      <div class="wrap">
-        <div class="grid">
-          <figure>
-            <img src="img/secondpass-recording.jpg" width="644" height="1396" loading="lazy" alt="Second Pass recording screen">
-            <figcaption>Recording.</figcaption>
-          </figure>
-          <figure>
-            <img src="img/secondpass-choosing.jpg" width="644" height="1396" loading="lazy" alt="Second Pass, choosing what comes back">
-            <figcaption>Choosing what comes back.</figcaption>
+          <figure class="peak__email" data-sc-cue="0.56" style="margin:0">
+            <img src="/img/chantierlog-weekly-email.webp" width="1264" height="710" loading="lazy" alt="{{ h.chantierlog.email_alt | escape }}">
+            <figcaption>{{ h.chantierlog.email_caption | escape }}</figcaption>
           </figure>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="how wrap" aria-labelledby="how">
-    <div class="rule">
-      <h2 id="how">How I work</h2>
+  <section class="story" data-sc-act="flow" data-sc-drift="#FFFFFF" data-bar="light">
+    <div class="wrap story__grid">
+      <p data-sc-in>{{ h.story.text | escape }}</p>
+      <figure style="margin:0" data-sc-reveal="up" data-sc-reveal-at="0.1 0.42">
+        <video src="/video/chantierlog-demo.mp4" poster="/video/chantierlog-demo-poster.webp" width="1280" height="720" muted loop playsinline controls preload="metadata"></video>
+        <figcaption>{{ h.story.video_caption | escape }}</figcaption>
+      </figure>
     </div>
-    <div class="three">
-      <div>
-        <h3>Step by step</h3>
-        <p>Most clients can picture the finished yard but not how it gets there, so I walk them through it step by step and answer what comes up along the way. Software is no different.</p>
-      </div>
-      <div>
-        <h3>Scope it down</h3>
-        <p>I’d rather scope something down and have it get used than ship something impressive nobody opens.</p>
-      </div>
-      <div>
-        <h3>One person</h3>
-        <p>I do the design and make the product decisions. The engineering runs through AI tools I direct, so the design and the build come from the same person.</p>
+  </section>
+
+  <!-- 4 · CONFIDENCE: the offers travelling sideways on the blue band. -->
+  <section data-sc-act="pan" data-sc-span="2.8" data-sc-drift="#2A47B8" data-bar="light">
+    <div data-sc-stage class="on-dark">
+      <div class="offers">
+        <div class="rail" data-sc-pan="0.04">
+          <div class="rail__lead">
+            <h2>{{ h.offers.heading | escape }}</h2>
+            <p>{{ h.offers.lead | escape }}</p>
+          </div>
+{%- for o in h.offers.items %}
+          <article class="offer"><h3>{{ o.title | escape }}</h3><p>{{ o.text | escape }}</p></article>
+{%- endfor %}
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="about wrap" aria-labelledby="about">
-    <div class="rule">
-      <h2 id="about">About me</h2>
+  <!-- 5 · CANDOUR: Second Pass, and what he cut. -->
+  <section class="sp" data-sc-act="flow" data-sc-drift="#FFFFFF" data-bar="light">
+    <div class="wrap sp__grid">
+      <div>
+        <h2 data-sc-in>{{ h.second_pass.heading | escape }}</h2>
+        <a class="sp__site" href="https://secondpass.app">{{ h.second_pass.link | escape }}</a>
+        <p class="sp__body" data-sc-in>{{ h.second_pass.body | escape }}</p>
+        <p class="sp__lesson" data-sc-in>{{ h.second_pass.lesson | escape }}</p>
+        <div class="cuts" role="table" aria-label="{{ h.second_pass.cuts_label | escape }}">
+          <div class="cut cut__head" role="row"><span role="columnheader">{{ h.second_pass.cuts_head_what | escape }}</span><span role="columnheader">{{ h.second_pass.cuts_head_why | escape }}</span></div>
+{%- for c in h.second_pass.cuts %}
+          <div class="cut" role="row"><span class="what" role="cell" data-pen-host>{% include strike.html text=c.what %}</span><span class="why" role="cell">{{ c.why | escape }}</span></div>
+{%- endfor %}
+        </div>
+      </div>
+      <div class="sp__phones">
+        <figure data-sc-reveal="up" data-sc-reveal-at="0.12 0.4"><div class="phone"><img src="/img/secondpass-recording.webp" width="644" height="1396" loading="lazy" alt="{{ h.second_pass.recording_alt | escape }}"></div><figcaption>{{ h.second_pass.recording_caption | escape }}</figcaption></figure>
+        <figure data-sc-reveal="up" data-sc-reveal-at="0.2 0.5"><div class="phone"><img src="/img/secondpass-choosing.webp" width="644" height="1396" loading="lazy" alt="{{ h.second_pass.choosing_alt | escape }}"></div><figcaption>{{ h.second_pass.choosing_caption | escape }}</figcaption></figure>
+      </div>
     </div>
-    <p class="desc soft">I’ve worked in the trades for ten years, operating heavy equipment and dealing with clients every day. When I have a clear objective for the day, it reflects in the work and in how the whole project goes. Everything runs smoother, and everybody works together better.</p>
-    <p class="desc soft">I want to build tools that give a team that kind of clarity: they handle the day-to-day of running a business without adding to the noise. I think keeping a clear mind is essential to a good work environment.</p>
   </section>
 
-  <section class="dark" id="walk-through" aria-labelledby="contact">
+  <!-- 6 · TRUST: how he works, who he is. -->
+  <section class="how" data-sc-act="flow" data-sc-drift="#F1F2F4" data-bar="light">
+    <div class="wrap how__grid">
+      <h2 class="how__title">{{ h.how.heading | escape }}</h2>
+      <div class="how__list" data-sc-in data-sc-stagger="90">
+{%- for item in h.how.items %}
+        <div class="how__item"><h3>{{ item.title | escape }}</h3><p>{{ item.text | escape }}</p></div>
+{%- endfor %}
+      </div>
+    </div>
+  </section>
+  <section class="about" data-sc-act="flow" data-sc-drift="#F1F2F4" data-bar="light">
+    <div class="wrap about__grid">
+      <div class="about__photo"><img src="/img/corey.webp" width="800" height="800" loading="lazy" alt="{{ h.about.photo_alt | escape }}" data-sc-parallax="-0.06"></div>
+      <div>
+        <h2>{{ h.about.heading | escape }}</h2>
+        <div class="about__text" style="margin-top:22px" data-sc-in data-sc-stagger="110">
+{%- for para in h.about.paragraphs %}
+          <p>{{ para | escape }}</p>
+{%- endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · RESOLVE: the walk-through, and the line drawn under it. -->
+  <section class="close on-dark" id="walk-through" data-sc-act="flow" data-sc-drift="#16203F" data-bar="dark">
     <div class="wrap">
-      <div class="rule">
-        <h2 id="contact">A calmer team, and clients who know what’s going on.</h2>
+      <p class="close__line" data-sc-in>{{ h.close.line | escape }}</p>
+      <div class="close__grid">
+        <div>
+          <div data-pen-host style="display:inline-block"><h3 data-pen="under">{{ h.close.heading | escape }}</h3></div>
+          <div class="close__text">
+{%- for para in h.close.paragraphs %}
+            <p>{{ para | escape }}</p>
+{%- endfor %}
+          </div>
+        </div>
+        <!-- A plain POST to Web3Forms, which emails the answers to Corey and
+             sends the reader to /thanks/. The access key is Web3Forms' public
+             key, safe in the page; the value below is the live public key.
+             The name attributes are the questions, so the email reads
+             clearly. -->
+        <form id="wt" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="7b02fbd6-59ec-4d85-b9a2-1b703598c37a">
+          <input type="hidden" name="subject" value="Walk-through request from baileydigital.io">
+          <input type="hidden" name="from_name" value="baileydigital.io">
+          <input type="hidden" name="redirect" value="https://baileydigital.io/thanks/">
+          <label for="f-chase">{{ h.close.form_chase | escape }}<textarea id="f-chase" name="What does your team spend time chasing" required></textarea></label>
+          <label for="f-update">{{ h.close.form_update | escape }}<textarea id="f-update" name="How do you keep clients updated now" required></textarea></label>
+          <label for="f-size">{{ h.close.form_size | escape }}<input id="f-size" name="How many people on your team" inputmode="numeric" required></label>
+          <div class="pair">
+            <label for="f-name">{{ h.close.form_name | escape }}<input id="f-name" name="name" autocomplete="name" required></label>
+            <label for="f-email">{{ h.close.form_email | escape }}<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <p><button class="btn btn--lg" type="submit">{{ h.close.button | escape }}</button></p>
+          <p class="form__note" aria-hidden="true"></p>
+        </form>
       </div>
-      <h3>Book a free walk-through</h3>
-      <p class="body">I come by, or we talk on a call if you’re not nearby. I’ll ask where things get lost: with your clients, with your team, between the job and the office. Then I’ll ask to see how it’s done now, whether that’s a paper form, a group chat or a spreadsheet.</p>
-      <p class="body">Within a few days you get one to three options in writing, each with what it would cost and how long it would take. No obligation. And if it isn’t worth building, I’ll tell you that too.</p>
-      <p class="body">If you go ahead, the first step is a clickable prototype, a small paid job, so you can see how it will work, and try it, before anything gets built.</p>
-      <!-- A plain POST to Web3Forms, which emails the answers to Corey and
-           sends the reader to /thanks/. The access key is Web3Forms' public
-           key, safe in the page; the value below is the live public key.
-           The name attributes are the questions, so the email reads
-           clearly. -->
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="7b02fbd6-59ec-4d85-b9a2-1b703598c37a">
-        <input type="hidden" name="subject" value="Walk-through request from baileydigital.io">
-        <input type="hidden" name="from_name" value="baileydigital.io">
-        <input type="hidden" name="redirect" value="https://baileydigital.io/thanks/">
-        <div class="fields">
-          <div class="field">
-            <label for="q-chasing">What does your team spend time chasing?</label>
-            <textarea id="q-chasing" name="What does your team spend time chasing" rows="3" required></textarea>
-          </div>
-          <div class="field">
-            <label for="q-clients">How do you keep clients updated now?</label>
-            <textarea id="q-clients" name="How do you keep clients updated now" rows="3" required></textarea>
-          </div>
-          <div class="field">
-            <label for="q-team">How many people on your team?</label>
-            <input type="text" id="q-team" name="How many people on your team" required>
-          </div>
-          <div class="field">
-            <label for="f-name">Name</label>
-            <input type="text" id="f-name" name="name" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="f-email">Email</label>
-            <input type="email" id="f-email" name="email" autocomplete="email" required>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn" type="submit">Book a free walk-through</button>
-          <a class="hit" href="mailto:corey@baileydigital.io">corey@baileydigital.io</a>
-        </div>
-      </form>
+      <footer class="foot">
+        <svg viewBox="0 0 356 74" role="img" aria-label="{{ h.footer.wordmark_label | escape }}"><use href="#wm"/></svg>
+        <span class="sel">{{ h.footer.email | escape }}</span>
+        <a href="/blog/">{{ h.footer.blog | escape }}</a>
+      </footer>
     </div>
   </section>
-
 </main>
 
-<footer class="wrap">
-  <p class="line"><a class="hit" href="/blog/">Blog</a></p>
-</footer>
-
-<script>
-  // The demo video. It plays on its own only when the reader has not asked
-  // for reduced motion, and only while it is on screen (it pauses when
-  // scrolled away, to save data and battery). The button is the reader's
-  // switch: once they pause it, it stays paused.
-  (function () {
-    var video = document.getElementById("demo");
-    var button = document.getElementById("demo-toggle");
-    if (!video || !button) return;
-
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var wanted = !reduce;
-    var onScreen = !("IntersectionObserver" in window);
-
-    function label() { button.textContent = wanted ? "Pause video" : "Play video"; }
-
-    function sync() {
-      if (wanted && onScreen) {
-        var p = video.play();
-        // If the browser refuses to play (Low Power Mode, for one), say so.
-        if (p && p.catch) p.catch(function () { wanted = false; label(); });
-      } else if (!video.paused) {
-        video.pause();
-      }
-    }
-
-    button.addEventListener("click", function () {
-      wanted = !wanted;
-      label();
-      sync();
-    });
-
-    if (!onScreen) {
-      new IntersectionObserver(function (entries) {
-        onScreen = entries[entries.length - 1].isIntersecting;
-        sync();
-      }).observe(video);
-    }
-
-    label();
-    button.hidden = false;
-    sync();
-  })();
-
-  // The pen lines. Each Before and What I cut is crossed out by the brand's
-  // pen line, one line per wrapped line of text, the first time its table
-  // comes into view; then the After and Why cells darken to Ink. Each table
-  // exists twice (rows on the phone, a table on desktop), so both copies
-  // share one state and the one not shown is drawn too. When the text moves
-  // (a resize, a turn of the phone, the font arriving) the lines are laid
-  // again at their final state; they never play twice. Under Reduce Motion
-  // they are laid already drawn.
-  (function () {
-    var still = !document.documentElement.classList.contains("motion") ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var NS = "http://www.w3.org/2000/svg";
-    var each = function (list, fn) { Array.prototype.forEach.call(list, fn); };
-    var boxes = document.querySelectorAll("[data-strike]");
-    if (!boxes.length) return;
-
-    // The wordmark's line (brand/files/), stretched to a line of text.
-    function pen(w) {
-      var x = function (v) { return (1.5 + (v - 2) * (w - 3) / 296).toFixed(1); };
-      return "M" + x(2) + " 9 C " + x(40) + " 6.5, " + x(95) + " 11.5, " + x(150) +
-        " 9 S " + x(245) + " 6.8, " + x(298) + " 4.5";
-    }
-
-    // One rectangle per rendered line of a cell's text, relative to the cell.
-    function lines(cell) {
-      var range = document.createRange(), c = cell.getBoundingClientRect(), out = [], rects = [];
-      each(cell.childNodes, function (n) {
-        if (n.nodeType !== 3) return; // text only, not the pen lines already in it
-        range.selectNodeContents(n);
-        each(range.getClientRects(), function (r) { rects.push(r); });
-      });
-      rects.forEach(function (r) {
-        if (r.width < 1) return;
-        var top = r.top - c.top - cell.clientTop, left = r.left - c.left - cell.clientLeft;
-        var last = out[out.length - 1];
-        if (last && Math.abs(last.top - top) < 2) {
-          last.width = Math.max(last.left + last.width, left + r.width) - last.left;
-        } else {
-          out.push({ top: top, left: left, width: r.width, height: r.height });
-        }
-      });
-      return out;
-    }
-
-    // Where every line of one copy of a table sits, row by row.
-    function measure(box) {
-      var rows = [];
-      each(box.querySelectorAll(".row, tbody tr"), function (row) {
-        var cell = row.querySelector(".then");
-        if (cell) rows.push({ cell: cell, now: row.querySelector(".now"), lines: lines(cell) });
-      });
-      return rows;
-    }
-    function key(rows) {
-      return rows.map(function (row) {
-        return row.lines.map(function (l) { return [l.top, l.left, l.width].map(Math.round).join(","); }).join(";");
-      }).join("|");
-    }
-
-    // Draw a copy's lines, each with its place in the sequence (250ms apart);
-    // a row's After darkens once its own lines are through.
-    function lay(box, rows) {
-      each(box.querySelectorAll(".pen-line"), function (n) { n.remove(); });
-      var i = 0;
-      rows.forEach(function (row) {
-        row.lines.forEach(function (l) {
-          var w = l.width + 6;
-          var svg = document.createElementNS(NS, "svg");
-          svg.setAttribute("class", "pen-line");
-          svg.setAttribute("aria-hidden", "true");
-          svg.setAttribute("viewBox", "0 0 " + w.toFixed(1) + " 14");
-          svg.style.width = w.toFixed(1) + "px";
-          svg.style.height = "14px";
-          svg.style.left = (l.left - 3).toFixed(1) + "px";
-          svg.style.top = (l.top + l.height * 0.55 - 8).toFixed(1) + "px";
-          var path = document.createElementNS(NS, "path");
-          path.setAttribute("pathLength", "1");
-          path.setAttribute("d", pen(w));
-          path.style.animationDelay = (i * 250) + "ms";
-          svg.appendChild(path);
-          row.cell.appendChild(svg);
-          i++;
-        });
-        if (row.now) row.now.style.animationDelay = (Math.max(i - 1, 0) * 250 + 400) + "ms";
-      });
-      box.setAttribute("data-key", key(rows));
-      return i;
-    }
-
-    var groups = {};
-    each(boxes, function (box) {
-      var name = box.getAttribute("data-strike");
-      (groups[name] = groups[name] || { boxes: [], state: "pending", timer: 0 }).boxes.push(box);
-    });
-
-    function finish(g) {
-      clearTimeout(g.timer);
-      g.state = "done";
-      g.boxes.forEach(function (box) { box.classList.remove("go"); box.classList.add("done"); });
-    }
-
-    function play(g) {
-      if (g.state !== "pending") return;
-      g.state = "go";
-      var count = 0;
-      g.boxes.forEach(function (box) {
-        count = Math.max(count, lay(box, measure(box)));
-        box.classList.add("go");
-      });
-      g.timer = setTimeout(function () { finish(g); }, Math.max(count - 1, 0) * 250 + 1000);
-    }
-
-    // Only when the text has actually moved. Laying again mid-play would
-    // restart it, so a move during play ends it at its final state.
-    function relay() {
-      Object.keys(groups).forEach(function (name) {
-        var g = groups[name];
-        g.boxes.forEach(function (box) {
-          var rows = measure(box);
-          if (key(rows) === box.getAttribute("data-key")) return;
-          if (g.state === "go") finish(g);
-          lay(box, rows);
-        });
-      });
-    }
-
-    Object.keys(groups).forEach(function (name) {
-      var g = groups[name];
-      if (still) finish(g);
-      g.boxes.forEach(function (box) { lay(box, measure(box)); });
-    });
-
-    var queued = false;
-    function queue() {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(function () { queued = false; relay(); });
-    }
-    if ("ResizeObserver" in window) {
-      var ro = new ResizeObserver(queue);
-      each(boxes, function (box) { ro.observe(box); });
-    }
-    window.addEventListener("resize", queue);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(queue);
-
-    if (still) return;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var g = groups[e.target.getAttribute("data-strike")];
-        g.boxes.forEach(function (box) { io.unobserve(box); });
-        play(g);
-      });
-    }, { rootMargin: "0px 0px -25% 0px" });
-    each(boxes, function (box) { io.observe(box); });
-  })();
-</script>
+<script src="/js/scrollcraft.js"></script>
+<script src="/js/home.js"></script>
 </body>
 </html>

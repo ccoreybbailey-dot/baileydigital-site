@@ -1,14 +1,33 @@
 ---
 layout: blog
 title: Blog
-description: "Corey Bailey on building tools for trades companies, and on the thinking that makes the work clearer."
+# The description, the band's title and the two tags are in _data/blog.yml.
 ---
-<section class="listing">
-  <h1>Blog</h1>
-  <p class="desc soft">{{ page.description }}</p>
-  <ul class="posts">
+{%- assign b = site.data.blog %}
+<section aria-labelledby="list-title">
+  <div class="masthead">
+    <div class="wrap">
+      <h1 id="list-title">{{ b.title | escape }}</h1>
+      <svg class="pen" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9 C 40 6.5, 95 11.5, 150 9 S 245 6.8, 298 4.5"/></svg>
+      <p>{{ b.description | escape }}</p>
+      <div class="tags">{% for t in b.tags %}<span><b>{{ t.name | escape }}</b>: {{ t.about | escape }}</span>{% endfor %}</div>
+    </div>
+  </div>
+  <div class="wrap posts">
 {%- for post in site.posts %}
-    <li><a href="{{ post.url }}">{{ post.title | escape }}</a><time class="soft" datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%-d %B %Y' }}</time></li>
+    {%- comment -%} The listing's line under the title: the post's first sentence,
+    set as summary in the post's front matter (a first-sentence split isn't
+    reliable in Liquid). Without one, the first paragraph shows. {%- endcomment -%}
+    {%- assign lede = post.summary | default: post.excerpt | strip_html | strip %}
+    <article class="entry">
+      <div class="entry__meta"><span class="tag">{{ post.tag | escape }}</span><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%-d %B %Y' }}</time></div>
+      <div>
+        <h2><a href="{{ post.url }}">{{ post.title | escape }}</a></h2>
+        <p class="entry__lede">{{ lede | escape }}</p>
+        <a class="entry__read" href="{{ post.url }}">{{ b.read_post | escape }}</a>
+      </div>
+    </article>
 {%- endfor %}
-  </ul>
+    <p class="more">{{ b.more | escape }}</p>
+  </div>
 </section>

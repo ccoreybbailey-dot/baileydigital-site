@@ -2,6 +2,10 @@
 title: "Clear work, clear mind"
 date: 2026-11-15
 description: "A trades guy on the two tools he built, ChantierLog and Second Pass, and the one idea behind both."
+# Work, Mind, or Work and mind
+tag: "Work and mind"
+# The listing shows this under the title: the post's first sentence, word for word.
+summary: "I’m a trades guy who builds tools for clear work and a clear mind."
 ---
 I’m a trades guy who builds tools for clear work and a clear mind.
 

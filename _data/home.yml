@@ -1,0 +1,167 @@
+# Every word on the home page (index.html), top to bottom as the page reads.
+#
+# How to edit:
+#   - Change the text between the double quotes. Keep the quotes.
+#   - Use curly quotes and apostrophes ( ’ “ ” ), as the page does now.
+#   - ~~like this~~ marks a phrase the pen line crosses out. Put the marks
+#     around the words to strike; one, several, or the whole line. This
+#     works in: the phone's "before" messages, the "lost" lines, the
+#     ChantierLog "before" lines and the "What I cut" items.
+#   - The motion (when each line is drawn, how long things stay pinned)
+#     lives in index.html and js/home.js, not here. Changing words here
+#     never needs a change there.
+#   - The phone holds five messages and ChantierLog two rows: their timing
+#     has that many slots. Changing how many is a build change, not a text
+#     edit.
+
+# ---------- the top bar ----------
+header:
+  logo_label: "BaileyDigital, back to top"     # read aloud by screen readers
+  wordmark_label: "BaileyDigital"              # read aloud by screen readers
+  blog: "Blog"
+  cta: "Book a free walk-through"
+
+# ---------- 1 · hero: the owner's phone at 7pm ----------
+hero:
+  name: "I’m Corey Bailey."
+  headline: "Keep your team organized and your clients in the loop."
+  sub: "Eastern Townships, Quebec. Ten years in the trades, with UX design alongside."
+  cta: "Book a free walk-through"
+  # The lock screen. Names and messages are made-up examples, not real people.
+  lock_time: "7:04"
+  lock_date: "Tuesday, November 18"
+  # icon: msg (green speech bubble) · reminder (orange clock) · call (green phone)
+  # before: what's on his phone (crossed out) · after: what handles it
+  messages:
+    - sender: "Marc"
+      time: "7:02 PM"
+      icon: msg
+      before: "~~We finished at 4:40. Étienne left at 3.~~"
+      after: "Hours logged from the crew’s phones."
+    - sender: "Reminders"
+      time: "6:50 PM"
+      icon: reminder
+      before: "~~Follow up on the Gagnon quote. Sent 3 days ago.~~"
+      after: "Follow-up went out on its own."
+    - sender: "Kevin"
+      time: "6:41 PM"
+      icon: msg
+      before: "~~Which job are we on tomorrow?~~"
+      after: "Tomorrow’s jobs went to the crew at 5."
+    - sender: "Julie, patio client"
+      time: "6:20 PM"
+      icon: msg
+      before: "~~Hi! Did you send the invoice yet?~~"
+      after: "Invoice sent when the job was marked done."
+    - sender: "Phone"
+      time: "6:12 PM"
+      icon: call
+      before: "~~Missed call. New number, no voicemail.~~"
+      after: "Texted back with a link to book a quote."
+
+# ---------- 2 · where things get lost ----------
+# One line per paragraph. The first is grey, the last is the bold one.
+lost:
+  - "For a crew in the field, that means knowing what got done today and who was on which job, and telling a client where things stand without a phone call."
+  - "When that lives on ~~paper and in texts~~, hours get billed wrong."
+  - "I build simple tools that fix that."
+
+# ---------- 3 · ChantierLog (pinned) ----------
+chantierlog:
+  heading: "ChantierLog"
+  link: "chantierlog.ca"
+  rows:
+    - heading: "On the job site"
+      before: "~~A paper sheet at the end of the day, pen in hand.~~"
+      after: "Crew leads file the day from their phones, offline where there’s no signal."
+    - heading: "Monday morning"
+      before: "~~Someone in the office chasing hours.~~"
+      after: "The week lands in the office’s inbox on its own, and nobody has to chase anyone for it."
+  phone_alt: "ChantierLog's crew sheet for the day, on a phone: jobs, hours and who was on each."
+  phone_caption: "The crew’s sheet for the day, on a phone."
+  email_alt: "The weekly ChantierLog email: the week's hours by job and by person."
+  email_caption: "The weekly email the office reads on Monday."
+
+# ---------- 3b · ChantierLog's story and the demo video ----------
+story:
+  text: "A job-site reporting app. At the end of every day I filled in a paper sheet, pen in hand, and it was a real pain. So I built the app I wanted: easier for crew leads to fill in, and easier for the office to receive and file for billing. It was piloted at the landscaping and excavation company I work for."
+  video_caption: "A demo of the app."
+
+# ---------- 4 · What I offer (the blue band, sideways) ----------
+offers:
+  heading: "What I offer"
+  lead: "Tools built around how your business works, not a generic app you have to work around."
+  items:
+    - title: "Your paper forms, as an app."
+      text: "Time sheets, daily reports and job checklists, turned into a simple app your crew fills in on their phone. Hours bill right, and the week doesn’t get pieced together from memory."
+    - title: "Your tools talking to each other."
+      text: "I connect the software you already use, so information is entered once and goes where it needs to."
+    - title: "The repeat work, done on its own."
+      text: "Invoices, reminders, follow-ups and client updates that go out by themselves, so clients know where things stand without calling to ask."
+    - title: "The week at a glance."
+      text: "One place to see hours, jobs and what’s still outstanding, so the day is planned and nothing slips."
+    - title: "Straight advice on AI."
+      text: "Where it would actually save you time, and where it wouldn’t. I’ve built AI features into my own app and cut them when they didn’t hold up, so you’ll get a straight answer."
+
+# ---------- 5 · Second Pass, and what I cut ----------
+second_pass:
+  heading: "Second Pass"
+  link: "secondpass.app"
+  body: "An iPhone app I designed and built. I’d been scrolling reels for far too long when a video came up saying, more or less, go do something with your life. It didn’t say anything groundbreaking, and that’s when I realized we already have this knowledge. We just need to be reminded of it. So I built an app that reminds you in your own words: you talk into it, and later it plays them back to you. It’s in testing with its first users."
+  lesson: "It’s where I learned to cut what doesn’t work, even after it’s built."
+  cuts_label: "What I cut, and why"            # read aloud by screen readers
+  cuts_head_what: "What I cut"
+  cuts_head_why: "Why"
+  cuts:
+    - what: "~~Two AI features I’d already built~~"
+      why: "They failed on the recordings that mattered most."
+    - what: "~~A feature for long recordings~~"
+      why: "I measured my own recordings. They were short, so it wasn’t needed."
+    - what: "~~Typing~~"
+      why: "I never used it."
+  recording_alt: "Second Pass while recording."
+  recording_caption: "Recording."
+  choosing_alt: "Second Pass, choosing which parts of a recording come back."
+  choosing_caption: "Choosing what comes back."
+
+# ---------- 6 · How I work ----------
+how:
+  heading: "How I work"
+  items:
+    - title: "Step by step"
+      text: "Most clients can picture the finished yard but not how it gets there, so I walk them through it step by step and answer what comes up along the way. Software is no different."
+    - title: "Scope it down"
+      text: "I’d rather scope something down and have it get used than ship something impressive nobody opens."
+    - title: "One person"
+      text: "I do the design and make the product decisions. The engineering runs through AI tools I direct, so the design and the build come from the same person."
+
+# ---------- 6b · About me ----------
+about:
+  photo_alt: "Corey Bailey."
+  heading: "About me"
+  paragraphs:
+    - "I’ve worked in the trades for ten years, operating heavy equipment and dealing with clients every day. When I have a clear objective for the day, it reflects in the work and in how the whole project goes. Everything runs smoother, and everybody works together better."
+    - "I want to build tools that give a team that kind of clarity: they handle the day-to-day of running a business without adding to the noise. I think keeping a clear mind is essential to a good work environment."
+
+# ---------- 7 · the close: the walk-through and its form ----------
+close:
+  line: "A calmer team, and clients who know what’s going on."
+  heading: "Book a free walk-through"
+  paragraphs:
+    - "I come by, or we talk on a call if you’re not nearby. I’ll ask where things get lost: with your clients, with your team, between the job and the office. Then I’ll ask to see how it’s done now, whether that’s a paper form, a group chat or a spreadsheet."
+    - "Within a few days you get one to three options in writing, each with what it would cost and how long it would take. No obligation. And if it isn’t worth building, I’ll tell you that too."
+    - "If you go ahead, the first step is a clickable prototype, a small paid job, so you can see how it will work, and try it, before anything gets built."
+  # The form's questions. Changing a label here does not change what the
+  # email to Corey calls the answer (that's the field's name, in index.html).
+  form_chase: "What does your team spend time chasing?"
+  form_update: "How do you keep clients updated now?"
+  form_size: "How many people on your team?"
+  form_name: "Name"
+  form_email: "Email"
+  button: "Book a free walk-through"
+
+# ---------- footer ----------
+footer:
+  wordmark_label: "BaileyDigital"              # read aloud by screen readers
+  email: "corey@baileydigital.io"
+  blog: "Blog"

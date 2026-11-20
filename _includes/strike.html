@@ -1,0 +1,27 @@
+{%- comment -%}
+  One string from _data/home.yml, with every phrase marked ~~like this~~
+  crossed out by the pen line. Splitting on ~~ leaves the struck phrases at
+  the odd positions (Liquid's split keeps a leading empty piece and drops a
+  trailing one), so zero, one or several marked phrases all work, and so does
+  a whole marked string. Each struck phrase becomes
+    <span class="strike" data-pen="strike">…</span>
+  and js/home.js measures its line from the text itself. Everything is
+  HTML-escaped.
+
+  text  the string
+  act   optional: the scroll window for the hero and ChantierLog strikes
+        ("start end" of the act's progress), set on every struck span as
+        data-pen-act. Without it the line draws as the phrase comes into view.
+
+  The element around this include must carry data-pen-host (the template
+  sets it), since the line is drawn in an SVG laid over that element.
+{%- endcomment -%}
+{%- assign strike_parts = include.text | split: "~~" -%}
+{%- for strike_part in strike_parts -%}
+  {%- assign strike_odd = forloop.index0 | modulo: 2 -%}
+  {%- if strike_odd == 1 -%}
+    <span class="strike" data-pen="strike"{% if include.act %} data-pen-act="{{ include.act }}"{% endif %}>{{ strike_part | escape }}</span>
+  {%- else -%}
+    {{ strike_part | escape }}
+  {%- endif -%}
+{%- endfor -%}

@@ -1,0 +1,40 @@
+# The words on the Blog pages (blog/index.html, _layouts/blog.html,
+# _layouts/post.html), top to bottom. A post's own words are in its file in
+# _posts/; its tag ("Work", "Mind" or "Work and mind") and its first
+# sentence for the listing (summary) are at the top of that file.
+
+# ---------- the top bar, on every Blog page ----------
+header:
+  logo_label: "BaileyDigital, home"            # read aloud by screen readers
+  wordmark_label: "BaileyDigital"              # read aloud by screen readers
+  blog: "Blog"
+  cta: "Book a free walk-through"
+
+# ---------- the listing: the navy band ----------
+title: "Clear work, clear mind"
+# Also the listing's description for search engines and link previews.
+description: "Corey Bailey on building tools for trades companies, and on the thinking that makes the work clearer."
+tags:
+  - name: "Work"
+    about: "tools, systems, running a crew"
+  - name: "Mind"
+    about: "the thinking behind it"
+
+# ---------- the listing: under the band ----------
+read_post: "Read the post"
+more: "New posts land here as they’re written."
+
+# ---------- a post ----------
+back: "Back to the blog"
+min_read: "min read"                           # after the number: "3 min read"
+author: "Corey Bailey"
+byline_place: "Eastern Townships, Quebec"
+# The ending under each post shows the home page's sub line
+# (hero → sub in _data/home.yml), then this button.
+end_cta: "Book a free walk-through"
+
+# ---------- the footer, on every Blog page ----------
+footer:
+  wordmark_label: "BaileyDigital"              # read aloud by screen readers
+  email: "corey@baileydigital.io"
+  blog: "Blog"

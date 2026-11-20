@@ -1,11 +1,27 @@
 ---
 layout: blog
 ---
-<article class="post">
-  <a class="label hit" href="/blog/">Blog</a>
-  <h1>{{ page.title | escape }}</h1>
-  <p class="byline soft">Corey Bailey · <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%-d %B %Y' }}</time></p>
+{%- assign b = site.data.blog %}
+{%- comment -%} Read time: the post's words at 200 a minute, rounded up, never under 1. {%- endcomment -%}
+{%- assign read_words = content | strip_html | number_of_words %}
+{%- assign read_min = read_words | divided_by: 200.0 | ceil %}
+{%- if read_min < 1 %}{% assign read_min = 1 %}{% endif %}
+<article class="post" aria-labelledby="post-title">
+  <a class="post__back" href="/blog/">{{ b.back | escape }}</a>
+  <p class="post__meta">{% if page.tag %}<span class="tag">{{ page.tag | escape }}</span>{% endif %}<time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%-d %B %Y' }}</time><span>{{ read_min }} {{ b.min_read | escape }}</span></p>
+  <h1 id="post-title">{{ page.title | escape }}</h1>
+  <svg class="pen" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9 C 40 6.5, 95 11.5, 150 9 S 245 6.8, 298 4.5"/></svg>
+  <div class="byline"><img src="/img/corey.webp" width="800" height="800" alt=""><span><b>{{ b.author | escape }}</b>{{ b.byline_place | escape }}</span></div>
   <div class="body">
-{{ content }}
+{{ content | replace_first: "<p>", '<p class="open">' }}
   </div>
+  <aside class="end" aria-label="About the author">
+    <img src="/img/corey.webp" width="800" height="800" loading="lazy" alt="">
+    <div>
+      <b>{{ b.author | escape }}</b>
+      <p>{{ site.data.home.hero.sub | remove: "~~" | escape }}</p>
+      <a class="btn" href="/#walk-through">{{ b.end_cta | escape }}</a>
+    </div>
+  </aside>
+  <p class="post__foot"><a href="/blog/">{{ b.back | escape }}</a></p>
 </article>
