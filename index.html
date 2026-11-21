@@ -546,13 +546,14 @@ After line). These are the draft's values; the words are in _data/home.yml. {%- 
             <label for="f-email">{{ h.close.form_email | escape }}<input id="f-email" name="email" type="email" autocomplete="email" required></label>
           </div>
           <p><button class="btn btn--lg" type="submit">{{ h.close.button | escape }}</button></p>
-          <p class="form__note" aria-hidden="true"></p>
+          <p class="form__note">{{ h.close.privacy_lead | escape }} <a href="/privacy/">{{ h.close.privacy_link | escape }}</a></p>
         </form>
       </div>
       <footer class="foot">
         <svg viewBox="0 0 356 74" role="img" aria-label="{{ h.footer.wordmark_label | escape }}"><use href="#wm"/></svg>
         <span class="sel">{{ h.footer.email | escape }}</span>
         <a href="/blog/">{{ h.footer.blog | escape }}</a>
+        <a href="/privacy/">{{ h.footer.privacy | escape }}</a>
       </footer>
     </div>
   </section>

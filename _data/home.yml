@@ -162,9 +162,13 @@ close:
   form_name: "Name"
   form_email: "Email"
   button: "Book a free walk-through"
+  # The line under the button. Only privacy_link is the link (to /privacy/).
+  privacy_lead: "What happens to this:"
+  privacy_link: "Privacy"
 
 # ---------- footer ----------
 footer:
   wordmark_label: "BaileyDigital"              # read aloud by screen readers
   email: "corey@baileydigital.io"
   blog: "Blog"
+  privacy: "Privacy"

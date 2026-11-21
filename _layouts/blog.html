@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 {%- assign b = site.data.blog %}
 {%- assign description = page.description | default: b.description %}
-<title>{{ page.title | escape }} — BaileyDigital</title>
+<title>{% if page.title_tag %}{{ page.title_tag | escape }}{% else %}{{ page.title | escape }} — BaileyDigital{% endif %}</title>
 <meta name="description" content="{{ description | escape }}">
 <meta name="author" content="Corey Bailey">
 <link rel="canonical" href="https://baileydigital.io{{ page.url }}">
@@ -134,6 +134,12 @@
   .end .btn { margin-top: 18px; }
   .post__foot { margin-top: 40px; font-size: 15px; }
 
+  /* ---------- privacy page: the post's reading column, with section headings ---------- */
+  .legal h1 { margin-top: 0; }
+  .legal .post__meta { margin-top: 14px; }
+  .legal .body h2 { margin-top: 1.9em; font-size: clamp(1.3rem, 1.1rem + .8vw, 1.6rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); }
+  .legal .body h2 + p { margin-top: .6em; }
+
   /* footer: the main site's navy close, small */
   .foot { background: var(--navy); color: rgba(255,255,255,.75); font-size: 14px; }
   .foot .wrap { padding-block: 34px calc(34px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
@@ -180,6 +186,7 @@
     <svg viewBox="0 0 356 74" role="img" aria-label="{{ b.footer.wordmark_label | escape }}"><use href="#wm"/></svg>
     <span class="sel">{{ b.footer.email | escape }}</span>
     <a href="/blog/">{{ b.footer.blog | escape }}</a>
+    <a href="/privacy/"{% if page.url == "/privacy/" %} aria-current="page"{% endif %}>{{ b.footer.privacy | escape }}</a>
   </div>
 </footer>
 
