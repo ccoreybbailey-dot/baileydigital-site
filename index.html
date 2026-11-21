@@ -185,6 +185,8 @@
     .hero__name { font-size: 16px; } .hero__name img { width: 30px; height: 30px; }
     .hero__sub { font-size: 15px; margin-top: 12px; }
     .hero__cta { margin-top: 18px; }
+    /* the line under the button: a little tighter, so it clears the phone (its top sits at 380px) up to 440px wide */
+    .hero__note { margin-top: 8px; line-height: 1.45; }
     .lock { right: 50%; translate: 50% 0; top: calc(380px + env(safe-area-inset-top, 0px)); height: min(98svh, 760px); }
     .lock__time { padding-top: 9%; font-size: 52px; } .lock__list { margin-top: 7%; gap: 6px; }
     .hero__glow { left: 50%; top: 80%; translate: -50% -50%; }
@@ -313,7 +315,7 @@
        visible, whatever the act's progress says. */
     #chantierlog, [data-sc-act="pan"] { height: auto !important; }
     #chantierlog [data-sc-cue] { opacity: 1 !important; pointer-events: auto !important; }
-    /* The offers, laid out instead of travelled: the lead, then the five
+    /* The offers, laid out instead of travelled: the lead, then the six
        panels, one column on phones, a wrapping grid on wide screens, all on
        the blue band. Replaces the engine's sideways scroll region. */
     [data-sc-act="pan"] [data-sc-stage] { height: auto; overflow: visible; scroll-snap-type: none; }
@@ -363,6 +365,7 @@ After line). These are the draft's values; the words are in _data/home.yml. {%- 
         <h1>{{ h.hero.headline | escape }}</h1>
         <p class="hero__sub muted">{{ h.hero.sub | escape }}</p>
         <p class="hero__cta"><a class="btn btn--lg" href="#walk-through">{{ h.hero.cta | escape }}</a></p>
+        <p class="hero__sub hero__note muted">{{ h.hero.cta_note | escape }}</p>
       </div>
       <div class="lock" id="lock" aria-hidden="true">
         <div class="lock__screen">
@@ -448,10 +451,10 @@ After line). These are the draft's values; the words are in _data/home.yml. {%- 
   </section>
 
   <!-- 4 · CONFIDENCE: the offers travelling sideways on the blue band. -->
-  <section data-sc-act="pan" data-sc-span="2.8" data-sc-drift="#2A47B8" data-bar="light">
+  <section data-sc-act="pan" data-sc-span="3.2" data-sc-drift="#2A47B8" data-bar="light">
     <div data-sc-stage class="on-dark">
       <div class="offers">
-        <div class="rail" data-sc-pan="0.04">
+        <div class="rail" data-sc-pan="0">
           <div class="rail__lead">
             <h2>{{ h.offers.heading | escape }}</h2>
             <p>{{ h.offers.lead | escape }}</p>

@@ -24,9 +24,10 @@ header:
 # ---------- 1 · hero: the owner's phone at 7pm ----------
 hero:
   name: "I’m Corey Bailey."
-  headline: "Keep your team organized and your clients in the loop."
-  sub: "Eastern Townships, Quebec. Ten years in the trades, with UX design alongside."
+  headline: "Running a trades company is chaotic. I help make it clear."
+  sub: "Eastern Townships, Quebec."
   cta: "Book a free walk-through"
+  cta_note: "Before anything gets built, I’ll tell you plainly whether it’s worth building."   # under the button
   # The lock screen. Names and messages are made-up examples, not real people.
   lock_time: "7:04"
   lock_date: "Tuesday, November 18"
@@ -62,9 +63,9 @@ hero:
 # ---------- 2 · where things get lost ----------
 # One line per paragraph. The first is grey, the last is the bold one.
 lost:
-  - "For a crew in the field, that means knowing what got done today and who was on which job, and telling a client where things stand without a phone call."
-  - "When that lives on ~~paper and in texts~~, hours get billed wrong."
-  - "I build simple tools that fix that."
+  - "I spent ten years on trades crews, and I know how much lands on you: the crew, the clients, the material, the billing."
+  - "I set up systems that take that load off and automate what can run on its own,"
+  - "so Monday morning isn’t a scramble."
 
 # ---------- 3 · ChantierLog (pinned) ----------
 chantierlog:
@@ -94,10 +95,12 @@ offers:
   items:
     - title: "Your paper forms, as an app."
       text: "Time sheets, daily reports and job checklists, turned into a simple app your crew fills in on their phone. Hours bill right, and the week doesn’t get pieced together from memory."
+    - title: "Quotes that go out, and get followed up."
+      text: "After the site visit, the quote goes out while the job is still fresh, and a follow-up goes out on its own if you haven’t heard back."
     - title: "Your tools talking to each other."
       text: "I connect the software you already use, so information is entered once and goes where it needs to."
     - title: "The repeat work, done on its own."
-      text: "Invoices, reminders, follow-ups and client updates that go out by themselves, so clients know where things stand without calling to ask."
+      text: "Invoices, reminders and client updates that go out by themselves, so clients know where things stand without calling to ask."
     - title: "The week at a glance."
       text: "One place to see hours, jobs and what’s still outstanding, so the day is planned and nothing slips."
     - title: "Straight advice on AI."
@@ -129,7 +132,7 @@ how:
   heading: "How I work"
   items:
     - title: "Step by step"
-      text: "Most clients can picture the finished yard but not how it gets there, so I walk them through it step by step and answer what comes up along the way. Software is no different."
+      text: "Most clients can picture the finished job but not how it gets there, so I walk them through it step by step and answer what comes up along the way. Software is no different."
     - title: "Scope it down"
       text: "I’d rather scope something down and have it get used than ship something impressive nobody opens."
     - title: "One person"
@@ -140,7 +143,7 @@ about:
   photo_alt: "Corey Bailey."
   heading: "About me"
   paragraphs:
-    - "I’ve worked in the trades for ten years, operating heavy equipment and dealing with clients every day. When I have a clear objective for the day, it reflects in the work and in how the whole project goes. Everything runs smoother, and everybody works together better."
+    - "On the crew, I’m operating heavy equipment and dealing with clients every day. When I have a clear objective for the day, it reflects in the work and in how the whole project goes. Everything runs smoother, and everybody works together better."
     - "I want to build tools that give a team that kind of clarity: they handle the day-to-day of running a business without adding to the noise. I think keeping a clear mind is essential to a good work environment."
 
 # ---------- 7 · the close: the walk-through and its form ----------
