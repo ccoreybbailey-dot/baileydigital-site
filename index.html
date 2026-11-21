@@ -41,8 +41,9 @@
       (_includes/strike.html turns the marks into spans).
     · One form, in the close: a plain HTML POST to Web3Forms
       (api.web3forms.com), no script, no captcha, nothing stored on the
-      site. The answers arrive by email. Otherwise no analytics, no cookies,
-      no third-party requests. The font is self-hosted (fonts/, OFL licence
+      site. The answers arrive by email. Visits are counted by Cloudflare Web
+      Analytics (self-hosted js/cf-beacon.min.js, posts to
+      cloudflareinsights.com, no cookies). Nothing else third-party. The font is self-hosted (fonts/, OFL licence
       beside it).
     · The scroll engine is scroll-craft (js/scrollcraft.js,
       css/scrollcraft.css, MIT, licence in js/), used as is and never
@@ -559,5 +560,6 @@ After line). These are the draft's values; the words are in _data/home.yml. {%- 
 
 <script src="/js/scrollcraft.js"></script>
 <script src="/js/home.js"></script>
+<script defer src="/js/cf-beacon.min.js" data-cf-beacon='{"token": "CF_TOKEN_BAILEYDIGITAL"}'></script>
 </body>
 </html>
