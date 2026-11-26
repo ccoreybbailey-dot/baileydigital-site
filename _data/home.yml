@@ -144,7 +144,7 @@ about:
   heading: "About me"
   paragraphs:
     - "I’m a trades guy who builds tools for clear work and a clear mind."
-    - "I started using AI tools in April 2026. Coming from the trades, there were times I doubted my abilities. I build things and run heavy equipment; how does that transfer to developing software? I know the business, I know the people, and nowadays that’s more important than knowing how to code."
+    - "I started building products in April 2026. Coming from the trades, there were times I doubted my abilities. I build things and run heavy equipment; how does that transfer to developing software? I know the business, I know the people, and nowadays that’s more important than knowing how to code."
     - "My goal is to help trades companies run more efficiently, whether that’s communication between crews, following up on leads, or emails. I’m solving for your problem, with simple systems a tired human will actually use."
   # The last paragraph. Only blog_link is the link (to /blog/).
   blog_lead: "I also write about the other side of me, the reflective one, on the"
