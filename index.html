@@ -510,6 +510,7 @@ After line). These are the draft's values; the words are in _data/home.yml. {%- 
 {%- for para in h.about.paragraphs %}
           <p>{{ para | escape }}</p>
 {%- endfor %}
+          <p>{{ h.about.blog_lead | escape }} <a href="/blog/">{{ h.about.blog_link | escape }}</a>{{ h.about.blog_tail | escape }}</p>
         </div>
       </div>
     </div>
